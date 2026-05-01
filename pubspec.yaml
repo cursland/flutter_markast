@@ -1,0 +1,19 @@
+name: markast
+description: Flutter renderer for the markast AST convention — typed JSON tree to native widgets.
+version: 0.0.1
+homepage: https://www.cursland.com
+
+environment:
+  sdk: ^3.11.5
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
