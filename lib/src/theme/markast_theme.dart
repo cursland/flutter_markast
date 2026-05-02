@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../highlight/markast_highlight_catalog.dart';
 import '../highlight/markast_highlight_theme.dart';
 
 /// Visual settings for one callout level. Just a Dart record — no custom
@@ -568,6 +569,9 @@ class MarkastTheme extends ThemeExtension<MarkastTheme> {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           border: Border(left: BorderSide(color: Color(0xFF16A34A), width: 3)),
         ),
+      ),
+      highlightTheme: MarkastHighlightTheme(
+        theme: isDark ? MarkastCodeThemes.paraisoDark : MarkastCodeThemes.paraisoLight,
       ),
     );
   }
