@@ -1,0 +1,304 @@
+import 'package:flutter/material.dart';
+
+import '../ast/node_types.dart';
+import '../theme/markast_theme.dart';
+
+import '../nodes/blocks/blockquote_node.dart';
+import '../nodes/blocks/code_block_node.dart';
+import '../nodes/blocks/divider_node.dart';
+import '../nodes/blocks/document_node.dart';
+import '../nodes/blocks/footnote_def_node.dart';
+import '../nodes/blocks/heading_node.dart';
+import '../nodes/blocks/html_block_node.dart';
+import '../nodes/blocks/image_node.dart';
+import '../nodes/blocks/list_node.dart';
+import '../nodes/blocks/paragraph_node.dart';
+import '../nodes/blocks/table_node.dart';
+import '../nodes/blocks/video_node.dart';
+import '../nodes/blocks/widget_node.dart';
+import '../nodes/inline/bold_inline.dart';
+import '../nodes/inline/bold_italic_inline.dart';
+import '../nodes/inline/break_inline.dart';
+import '../nodes/inline/code_inline.dart';
+import '../nodes/inline/footnote_ref_inline.dart';
+import '../nodes/inline/inline_image.dart';
+import '../nodes/inline/italic_inline.dart';
+import '../nodes/inline/link_inline.dart';
+import '../nodes/inline/strikethrough_inline.dart';
+import '../nodes/inline/text_inline.dart';
+import '../nodes/inline/underline_inline.dart';
+import '../widgets/callout_widget.dart';
+
+import 'block_renderer.dart';
+import 'inline_renderer.dart';
+import 'node_registry.dart';
+import 'render_context.dart';
+import 'widget_node_renderer.dart';
+import 'widget_registry.dart';
+
+/// The Flutter renderer entry point.
+///
+/// `Markast()` returns an instance pre-loaded with every official block,
+/// inline, and widget renderer. Register custom renderers on top:
+/// ```dart
+/// final markast = Markast();
+/// markast.registerBlock(MyVideoRenderer());
+/// markast.registerWidget(MyCarouselRenderer());
+///
+/// Widget build(BuildContext context) {
+///   return markast.buildDocument(context, jsonAst,
+///     onLinkTap: (url, _) => launchUrl(Uri.parse(url)),
+///   );
+/// }
+/// ```
+///
+/// `Markast.empty()` starts with no renderers — use it for full takeovers
+/// where you want to supply every renderer yourself.
+class Markast {
+  Markast._({MarkastTheme? theme})
+      : nodes = NodeRegistry(),
+        widgets = WidgetRegistry(),
+        _explicitTheme = theme;
+
+  /// Creates a [Markast] instance pre-loaded with all official renderers.
+  /// Pass [theme] to override the resolved [MarkastTheme] for every render.
+  factory Markast({MarkastTheme? theme}) {
+    final m = Markast._(theme: theme);
+    m.nodes.registerAllBlocks(_officialBlocks);
+    m.nodes.registerAllInlines(_officialInlines);
+    m.widgets.registerAll(_officialWidgets);
+    return m;
+  }
+
+  /// Creates a [Markast] instance with no renderers registered.
+  factory Markast.empty({MarkastTheme? theme}) => Markast._(theme: theme);
+
+  /// Block and inline node renderer registry.
+  final NodeRegistry nodes;
+
+  /// Widget node renderer registry.
+  final WidgetRegistry widgets;
+
+  final MarkastTheme? _explicitTheme;
+
+  /// Register a custom block renderer, replacing any existing one for the same type.
+  void registerBlock(BlockRenderer r) => nodes.registerBlock(r);
+
+  /// Register a custom inline renderer, replacing any existing one for the same type.
+  void registerInline(InlineRenderer r) => nodes.registerInline(r);
+
+  /// Register a custom widget renderer, replacing any existing one for the same name.
+  void registerWidget(WidgetNodeRenderer r) => widgets.register(r);
+
+  // ── Top-level entry ───────────────────────────────────────────────────────
+
+  /// Render [document] (a markast JSON AST root node) into a widget tree.
+  ///
+  /// - [onLinkTap]: called when a link is tapped; links are non-interactive
+  ///   when null.
+  /// - [imageBuilder]: custom image widget factory; see [MarkastImageBuilder].
+  /// - [videoBuilder]: custom video player factory; see [MarkastVideoBuilder].
+  /// - [onCodeCopy]: called when the code-block copy button is tapped;
+  ///   defaults to [Clipboard.setData].
+  Widget buildDocument(
+    BuildContext context,
+    Map<String, dynamic> document, {
+    void Function(String url, String? title)? onLinkTap,
+    MarkastImageBuilder? imageBuilder,
+    MarkastVideoBuilder? videoBuilder,
+    void Function(String code)? onCodeCopy,
+  }) {
+    final theme = resolveTheme(context);
+    final ctx = RenderContext(
+      context: context,
+      theme: theme,
+      markast: this,
+      onLinkTap: onLinkTap,
+      imageBuilder: imageBuilder,
+      videoBuilder: videoBuilder,
+      onCodeCopy: onCodeCopy,
+    );
+    _indexFootnotes(ctx, document);
+    return buildBlock(ctx, document);
+  }
+
+  /// Resolves the [MarkastTheme] in priority order:
+  /// 1. Theme passed to [Markast()] constructor.
+  /// 2. `Theme.of(context).extension<MarkastTheme>()`.
+  /// 3. `MarkastTheme.fromTheme(Theme.of(context))` as a sensible fallback.
+  MarkastTheme resolveTheme(BuildContext context) {
+    if (_explicitTheme != null) return _explicitTheme;
+    final flutterTheme = Theme.of(context);
+    return flutterTheme.extension<MarkastTheme>() ??
+        MarkastTheme.fromTheme(flutterTheme);
+  }
+
+  // ── Block dispatch ────────────────────────────────────────────────────────
+
+  /// Render a single block [node]. Returns a missing-renderer placeholder if
+  /// no renderer is registered for the node's `type`.
+  Widget buildBlock(RenderContext ctx, Map<String, dynamic> node) {
+    final type = node['type'] as String?;
+    if (type == null) return _missing(ctx, '<no type>');
+    final renderer = nodes.blockFor(type);
+    if (renderer == null) return _missing(ctx, type);
+    return renderer.build(ctx, node);
+  }
+
+  /// Render a list of block nodes.
+  List<Widget> buildBlocks(RenderContext ctx, List<dynamic>? children) {
+    if (children == null) return const [];
+    return [
+      for (final c in children) buildBlock(ctx, c as Map<String, dynamic>),
+    ];
+  }
+
+  /// Render a list of children that may mix block and inline nodes.
+  ///
+  /// Consecutive inline nodes are collapsed into a single [Text.rich]; block
+  /// nodes go through the normal block dispatcher. Use this in any renderer
+  /// whose children container can be "tight" (list items, blockquote, footnote
+  /// definitions, widget slots).
+  List<Widget> buildMixedBody(
+    RenderContext ctx,
+    List<dynamic>? children,
+    TextStyle inlineBaseStyle,
+  ) {
+    if (children == null) return const [];
+    final out = <Widget>[];
+    final inlineRun = <dynamic>[];
+
+    void flush() {
+      if (inlineRun.isEmpty) return;
+      final spans = buildInlines(ctx, inlineRun, inlineBaseStyle);
+      out.add(Text.rich(TextSpan(style: inlineBaseStyle, children: spans)));
+      inlineRun.clear();
+    }
+
+    for (final raw in children) {
+      final child = raw as Map<String, dynamic>;
+      final type = child['type'] as String? ?? '';
+      if (NodeType.inlineTypes.contains(type)) {
+        inlineRun.add(child);
+      } else {
+        flush();
+        out.add(buildBlock(ctx, child));
+      }
+    }
+    flush();
+    return out;
+  }
+
+  // ── Inline dispatch ───────────────────────────────────────────────────────
+
+  /// Render a single inline [node] with inherited [style].
+  InlineSpan buildInline(
+    RenderContext ctx,
+    Map<String, dynamic> node,
+    TextStyle style,
+  ) {
+    final type = node['type'] as String?;
+    if (type == null) return TextSpan(text: '<no type>', style: style);
+    final renderer = nodes.inlineFor(type);
+    if (renderer == null) {
+      return TextSpan(
+        text: '[unknown:$type]',
+        style: style.merge(ctx.theme.unknownInlineTextStyle),
+      );
+    }
+    return renderer.build(ctx, node, style);
+  }
+
+  /// Render a list of inline nodes with inherited [style].
+  List<InlineSpan> buildInlines(
+    RenderContext ctx,
+    List<dynamic>? children,
+    TextStyle style,
+  ) {
+    if (children == null) return const [];
+    return [
+      for (final c in children)
+        buildInline(ctx, c as Map<String, dynamic>, style),
+    ];
+  }
+
+  // ── Widget dispatch ───────────────────────────────────────────────────────
+
+  /// Render a `:::widget` node by dispatching to the [WidgetRegistry].
+  Widget buildWidget(RenderContext ctx, Map<String, dynamic> node) {
+    final name = node['widget'] as String? ?? '';
+    final props = (node['props'] as Map<String, dynamic>?) ?? const {};
+    final rawSlots = (node['slots'] as Map<String, dynamic>?) ?? const {};
+    final slots = <String, List<Map<String, dynamic>>>{
+      for (final entry in rawSlots.entries)
+        entry.key: [
+          for (final c in entry.value as List<dynamic>)
+            c as Map<String, dynamic>,
+        ],
+    };
+    final renderer = widgets.rendererFor(name);
+    if (renderer == null) return _missing(ctx, 'widget:$name');
+    return renderer.build(ctx, props, slots);
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  void _indexFootnotes(RenderContext ctx, Map<String, dynamic> document) {
+    final defs = <String, Map<String, dynamic>>{};
+    final children = document['children'] as List<dynamic>? ?? const [];
+    for (final node in children) {
+      if (node is Map<String, dynamic> &&
+          node['type'] == NodeType.footnoteDef) {
+        defs[node['label'] as String] = node;
+      }
+    }
+    ctx.scratch['footnotes'] = defs;
+  }
+
+  Widget _missing(RenderContext ctx, String type) => Container(
+        margin: ctx.theme.missingRendererMargin,
+        padding: ctx.theme.missingRendererPadding,
+        decoration: ctx.theme.missingRendererDecoration,
+        child: Text(
+          'No renderer registered for "$type"',
+          style: ctx.theme.missingRendererTextStyle,
+        ),
+      );
+
+  // ── Default renderer lists ────────────────────────────────────────────────
+
+  static const List<BlockRenderer> _officialBlocks = [
+    DocumentNodeRenderer(),
+    HeadingNodeRenderer(),
+    ParagraphNodeRenderer(),
+    BlockquoteNodeRenderer(),
+    CodeBlockNodeRenderer(),
+    ImageNodeRenderer(),
+    VideoNodeRenderer(),
+    ListNodeRenderer(),
+    TableNodeRenderer(),
+    DividerNodeRenderer(),
+    HtmlBlockNodeRenderer(),
+    FootnoteDefNodeRenderer(),
+    WidgetBlockRenderer(),
+  ];
+
+  static const List<InlineRenderer> _officialInlines = [
+    TextInlineRenderer(),
+    BoldInlineRenderer(),
+    ItalicInlineRenderer(),
+    BoldItalicInlineRenderer(),
+    CodeInlineRenderer(),
+    LinkInlineRenderer(),
+    StrikethroughInlineRenderer(),
+    UnderlineInlineRenderer(),
+    InlineImageRenderer(),
+    SoftbreakInlineRenderer(),
+    HardbreakInlineRenderer(),
+    FootnoteRefInlineRenderer(),
+  ];
+
+  static const List<WidgetNodeRenderer> _officialWidgets = [
+    CalloutWidgetRenderer(),
+  ];
+}
