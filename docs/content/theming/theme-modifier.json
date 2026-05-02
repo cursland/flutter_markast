@@ -1,0 +1,390 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "themeModifier"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "code_inline",
+          "value": "themeModifier"
+        },
+        {
+          "type": "text",
+          "value": " es la forma más sencilla de ajustar el tema predeterminado sin necesitar un "
+        },
+        {
+          "type": "code_inline",
+          "value": "BuildContext"
+        },
+        {
+          "type": "text",
+          "value": " en el momento de la construcción."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Sintaxis"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast(\n  themeModifier: (base) => base.copyWith(\n    blockSpacing: 24,\n    listBulletMarker: '▸',\n  ),\n);"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "El callback recibe el "
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme"
+        },
+        {
+          "type": "text",
+          "value": " completamente resuelto (derivado automáticamente de "
+        },
+        {
+          "type": "code_inline",
+          "value": "ThemeData"
+        },
+        {
+          "type": "text",
+          "value": ") y devuelve una copia modificada. Solo especificas lo que quieres cambiar — el resto se mantiene como fue derivado."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tipo"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "typedef MarkastThemeModifier = MarkastTheme Function(MarkastTheme base);"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "themeModifier vs. tema explícito"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": []
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "themeModifier"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "theme"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Recibe la base derivada automáticamente"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✓"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✗"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Necesita BuildContext"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✗"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Depende"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Reemplazo completo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✗"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✓"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Sigue los cambios de ThemeData"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✓"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✗"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Usa "
+        },
+        {
+          "type": "code_inline",
+          "value": "themeModifier"
+        },
+        {
+          "type": "text",
+          "value": " para ajustes. Usa "
+        },
+        {
+          "type": "code_inline",
+          "value": "theme"
+        },
+        {
+          "type": "text",
+          "value": " solo cuando necesites control total y mantengas el tema tú mismo."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Objetos anidados"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Para objetos de tema anidados como "
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkastHighlightTheme"
+        },
+        {
+          "type": "text",
+          "value": ", construye una nueva instancia directamente:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "themeModifier: (base) => base.copyWith(\n  highlightTheme: MarkastHighlightTheme(\n    theme: MarkastCodeThemes.monokai,\n  ),\n)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Deshabilitar una funcionalidad"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Pasa "
+        },
+        {
+          "type": "code_inline",
+          "value": "null"
+        },
+        {
+          "type": "text",
+          "value": " donde la propiedad lo acepta:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "themeModifier: (base) => base.copyWith(\n  highlightTheme: null, // deshabilita el resaltado de sintaxis\n)"
+    }
+  ]
+}

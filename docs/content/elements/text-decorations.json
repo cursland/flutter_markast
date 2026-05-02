@@ -1,0 +1,336 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tachado y Subrayado"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Decoraciones inline para texto eliminado o resaltado."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Estructura AST"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "json",
+      "value": "{ \"type\": \"strikethrough\", \"children\": [{ \"type\": \"text\", \"value\": \"precio antiguo\" }] }\n{ \"type\": \"underline\",     \"children\": [{ \"type\": \"text\", \"value\": \"importante\" }] }"
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "HTML"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Caso de uso"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "strikethrough"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "<del>"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Contenido eliminado, texto tachado"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "underline"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "<u>"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Énfasis, anotaciones de documento"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Propiedades del tema en Flutter"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "strikethroughTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilo de decoración (por defecto "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "TextDecoration.lineThrough"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "underlineTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilo de decoración (por defecto "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "TextDecoration.underline"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Personalización"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "themeModifier: (base) => base.copyWith(\n  strikethroughTextStyle: TextStyle(\n    decoration: TextDecoration.lineThrough,\n    color: Colors.red.withOpacity(.6),\n  ),\n  underlineTextStyle: TextStyle(\n    decoration: TextDecoration.underline,\n    decorationColor: Colors.blue,\n    decorationThickness: 2,\n  ),\n)"
+    }
+  ]
+}

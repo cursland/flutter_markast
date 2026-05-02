@@ -1,0 +1,202 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Modo Oscuro"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "markast sigue automáticamente el brillo de tu app cuando se usa "
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme.fromTheme()"
+        },
+        {
+          "type": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Cómo funciona"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "code_inline",
+          "value": "fromTheme()"
+        },
+        {
+          "type": "text",
+          "value": " lee "
+        },
+        {
+          "type": "code_inline",
+          "value": "ThemeData.brightness"
+        },
+        {
+          "type": "text",
+          "value": " para seleccionar los valores predeterminados apropiados:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "children": [
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "App oscura → tema de resaltado "
+            },
+            {
+              "type": "code_inline",
+              "value": "monokai"
+            },
+            {
+              "type": "text",
+              "value": ", colores de texto apropiados para modo oscuro"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "App clara → tema de resaltado "
+            },
+            {
+              "type": "code_inline",
+              "value": "xcode"
+            },
+            {
+              "type": "text",
+              "value": ", colores de texto apropiados para modo claro"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Automático con MaterialApp"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Si tu app tiene tema claro y oscuro, markast se adapta a cada uno:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "MaterialApp(\n  theme: ThemeData.light(),\n  darkTheme: ThemeData.dark(),\n  themeMode: ThemeMode.system,\n  // markast lee el brillo del tema activo\n)"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "No se necesita ninguna configuración adicional."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tema oscuro manual"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Si necesitas un "
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme"
+        },
+        {
+          "type": "text",
+          "value": " oscuro personalizado:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "MaterialApp(\n  theme: ThemeData.light().copyWith(\n    extensions: [\n      MarkastTheme.fromTheme(ThemeData.light()).copyWith(\n        highlightTheme: MarkastHighlightTheme(theme: MarkastCodeThemes.xcode),\n      ),\n    ],\n  ),\n  darkTheme: ThemeData.dark().copyWith(\n    extensions: [\n      MarkastTheme.fromTheme(ThemeData.dark()).copyWith(\n        highlightTheme: MarkastHighlightTheme(theme: MarkastCodeThemes.monokai),\n      ),\n    ],\n  ),\n)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Forzar un tema específico"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Pasa un tema explícito a "
+        },
+        {
+          "type": "code_inline",
+          "value": "Markast()"
+        },
+        {
+          "type": "text",
+          "value": " para ignorar completamente el brillo de la app:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast(\n  theme: MarkastTheme.fromTheme(ThemeData.dark()),\n);"
+    }
+  ]
+}

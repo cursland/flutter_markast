@@ -1,0 +1,580 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Renderers Personalizados"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Reemplaza o extiende cualquier renderer oficial, o añade soporte para tipos de nodos completamente nuevos."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Renderer de bloque"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Extiende "
+        },
+        {
+          "type": "code_inline",
+          "value": "BlockRenderer"
+        },
+        {
+          "type": "text",
+          "value": " e implementa "
+        },
+        {
+          "type": "code_inline",
+          "value": "type"
+        },
+        {
+          "type": "text",
+          "value": " + "
+        },
+        {
+          "type": "code_inline",
+          "value": "build"
+        },
+        {
+          "type": "text",
+          "value": ":"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "import 'package:markast/markast.dart';\n\nclass MyHeadingRenderer extends BlockRenderer {\n  const MyHeadingRenderer();\n\n  @override\n  String get type => 'heading';\n\n  @override\n  Widget build(RenderContext ctx, Map<String, dynamic> node) {\n    final level = (node['level'] as int?) ?? 1;\n    final style = switch (level) {\n      1 => ctx.theme.h1TextStyle,\n      2 => ctx.theme.h2TextStyle,\n      _ => ctx.theme.h3TextStyle,\n    };\n    final spans = ctx.markast.buildInlines(\n      ctx,\n      node['children'] as List?,\n      style,\n    );\n    return Padding(\n      padding: ctx.theme.headingPadding,\n      child: Text.rich(TextSpan(style: style, children: spans)),\n    );\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Regístralo en tu instancia de "
+        },
+        {
+          "type": "code_inline",
+          "value": "Markast"
+        },
+        {
+          "type": "text",
+          "value": ":"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast()\n  ..registerBlock(const MyHeadingRenderer());"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Renderer de inline"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Extiende "
+        },
+        {
+          "type": "code_inline",
+          "value": "InlineRenderer"
+        },
+        {
+          "type": "text",
+          "value": " e implementa "
+        },
+        {
+          "type": "code_inline",
+          "value": "type"
+        },
+        {
+          "type": "text",
+          "value": " + "
+        },
+        {
+          "type": "code_inline",
+          "value": "build"
+        },
+        {
+          "type": "text",
+          "value": ":"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "class MyHighlightRenderer extends InlineRenderer {\n  const MyHighlightRenderer();\n\n  @override\n  String get type => 'highlight';  // tipo de nodo personalizado\n\n  @override\n  InlineSpan build(\n    RenderContext ctx,\n    Map<String, dynamic> node,\n    TextStyle style,\n  ) {\n    final children = ctx.markast.buildInlines(\n      ctx,\n      node['children'] as List?,\n      style,\n    );\n    return TextSpan(\n      style: style.copyWith(backgroundColor: Colors.yellow.withOpacity(.4)),\n      children: children,\n    );\n  }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Renderer de widget"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Extiende "
+        },
+        {
+          "type": "code_inline",
+          "value": "WidgetNodeRenderer"
+        },
+        {
+          "type": "text",
+          "value": " para manejar los nodos "
+        },
+        {
+          "type": "code_inline",
+          "value": ":::widget"
+        },
+        {
+          "type": "text",
+          "value": " del parser Python:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "class BannerWidgetRenderer extends WidgetNodeRenderer {\n  const BannerWidgetRenderer();\n\n  @override\n  String get name => 'banner';\n\n  @override\n  Widget build(\n    RenderContext ctx,\n    Map<String, dynamic> props,\n    Map<String, List<Map<String, dynamic>>> slots,\n  ) {\n    final title = props['title'] as String? ?? '';\n    return Container(\n      color: Colors.blue.shade100,\n      padding: const EdgeInsets.all(16),\n      child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),\n    );\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "La sintaxis Markdown correspondiente (parser Python):"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "",
+      "value": ":::widget banner title=\"Bienvenido\"\n:::"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "RenderContext"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Cada renderer recibe un "
+        },
+        {
+          "type": "code_inline",
+          "value": "RenderContext"
+        },
+        {
+          "type": "text",
+          "value": " con:"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Campo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "context"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BuildContext"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Contexto de build de Flutter"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "theme"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "MarkastTheme"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tema resuelto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "markast"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "Markast"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "La instancia del renderer (para llamadas recursivas)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "onLinkTap"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "callback?"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Manejador de toque en enlace"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "imageBuilder"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "callback?"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fábrica de imágenes personalizada"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoBuilder"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "callback?"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fábrica de videos personalizada"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "onCodeCopy"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "callback?"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Manejador del botón de copiar"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "scratch"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "Map<String, dynamic>"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estado mutable compartido entre renderers (usado para indexar notas al pie)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

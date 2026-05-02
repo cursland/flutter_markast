@@ -1,0 +1,788 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Video"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Un reproductor de video a nivel de bloque con imagen de portada e control de relación de aspecto opcionales."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Estructura AST"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "json",
+      "value": "{\n  \"type\": \"video\",\n  \"src\": \"https://example.com/clip.mp4\",\n  \"poster\": \"https://example.com/thumb.jpg\",\n  \"caption\": \"Demo de la app\"\n}"
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Campo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Requerido"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "type"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "\"video\""
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✓"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo de nodo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "src"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "string"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "✓"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "URL o ruta de asset del video"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "poster"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "string"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Imagen de portada mostrada antes de la reproducción"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "caption"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "string"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Texto mostrado bajo el reproductor"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Comportamiento por defecto"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Por defecto markast renderiza un marco de placeholder con la imagen de portada y un botón de play. La reproducción real se delega al callback "
+        },
+        {
+          "type": "code_inline",
+          "value": "videoBuilder"
+        },
+        {
+          "type": "text",
+          "value": " — el predeterminado no reproduce automáticamente."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Propiedades del tema en Flutter"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoFrameDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BoxDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Borde y fondo del contenedor exterior"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoSrcTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilo del texto del pie de foto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoSrcPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding alrededor del pie de foto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoPlayButtonDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BoxDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fondo del círculo del botón de play"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoPlayButtonSize"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tamaño del contenedor del botón de play (por defecto "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "56"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoPlayIconColor"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "Color"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Color del icono de play (por defecto blanco)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoPlayIconSize"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tamaño del icono de play (por defecto "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "32"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "videoAspectRatio"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Relación de aspecto del reproductor (por defecto "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "16/9"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Reproductor de video personalizado"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Reemplaza el contenido del reproductor con tu propio widget (p.ej. "
+        },
+        {
+          "type": "code_inline",
+          "value": "video_player"
+        },
+        {
+          "type": "text",
+          "value": ", "
+        },
+        {
+          "type": "code_inline",
+          "value": "chewie"
+        },
+        {
+          "type": "text",
+          "value": ", "
+        },
+        {
+          "type": "code_inline",
+          "value": "youtube_player_flutter"
+        },
+        {
+          "type": "text",
+          "value": "):"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "markast.buildDocument(\n  context,\n  ast,\n  videoBuilder: (src, {poster, aspectRatio = 16 / 9}) {\n    return VideoPlayerWidget(\n      url: src,\n      thumbnail: poster,\n      aspectRatio: aspectRatio,\n    );\n  },\n)"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "El "
+        },
+        {
+          "type": "code_inline",
+          "value": "videoBuilder"
+        },
+        {
+          "type": "text",
+          "value": " recibe solo el área de contenido. La decoración del marco exterior y el pie de foto siguen controlados por "
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme"
+        },
+        {
+          "type": "text",
+          "value": "."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1687 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "MarkastTheme"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme"
+        },
+        {
+          "type": "text",
+          "value": " es un "
+        },
+        {
+          "type": "code_inline",
+          "value": "ThemeExtension"
+        },
+        {
+          "type": "text",
+          "value": " que controla cada aspecto visual de los renderers oficiales. Todos los campos son primitivos de Flutter — no hay clases personalizadas que aprender."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Crear un tema"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Siempre parte de "
+        },
+        {
+          "type": "code_inline",
+          "value": "fromTheme()"
+        },
+        {
+          "type": "text",
+          "value": " y sobreescribe lo que necesites:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "MarkastTheme.fromTheme(Theme.of(context)).copyWith(\n  blockSpacing: 24,\n  listBulletMarker: '▸',\n)"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "O mediante "
+        },
+        {
+          "type": "code_inline",
+          "value": "themeModifier"
+        },
+        {
+          "type": "text",
+          "value": " en la instancia de "
+        },
+        {
+          "type": "code_inline",
+          "value": "Markast"
+        },
+        {
+          "type": "text",
+          "value": ":"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast(\n  themeModifier: (base) => base.copyWith(blockSpacing: 24),\n);"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Propiedades de layout"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Por defecto"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "maxContentWidth"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "720"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Ancho máximo del documento"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "documentPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "LTRB(20,16,20,32)"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding por defecto del documento"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "compactDocumentPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "LTRB(16,12,16,28)"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding en pantallas pequeñas"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "wideDocumentPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "LTRB(24,24,24,48)"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding en pantallas anchas"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "compactBreakpoint"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "600"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Ancho por debajo del cual se usa el padding compacto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "wideBreakpoint"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "1024"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Ancho por encima del cual se usa el padding amplio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "blockSpacing"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "16"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Espacio vertical entre elementos de bloque"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tipografía"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "bodyTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilo base para párrafos y texto de cuerpo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "h1TextStyle"
+                  },
+                  {
+                    "type": "text",
+                    "value": " – "
+                  },
+                  {
+                    "type": "code_inline",
+                    "value": "h6TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilos de encabezado por nivel"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "headingPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Espacio alrededor de todos los encabezados"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "boldTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Se combina con el estilo padre para negrita"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "italicTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Se combina con el estilo padre para cursiva"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "boldItalicTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Negrita + cursiva combinados"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "strikethroughTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Decoración de tachado"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "underlineTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Decoración de subrayado"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "linkTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Color y decoración para enlaces"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeInlineTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fuente y tamaño para código en línea"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeInlineDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BoxDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fondo y borde del código en línea"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeInlinePadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding interno del código en línea"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Bloque de código"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fuente monoespaciada y tamaño"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BoxDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fondo y borde del bloque"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockPadding"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "EdgeInsets"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Padding interno del área de código"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockHeaderDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "BoxDecoration"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Fondo de la barra de encabezado"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockShowCopyButton"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "bool"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Mostrar u ocultar el botón de copiar"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "codeBlockCopyIconColor"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "Color"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Color del icono de copiar"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "highlightTheme"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "MarkastHighlightTheme?"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tema de resaltado de sintaxis"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Listas"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propiedad"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Tipo"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Por defecto"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Descripción"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "listMarkerTextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "TextStyle"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Estilo de las viñetas o números"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "listMarkerWidth"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "22"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Ancho reservado para la columna del marcador"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "listItemSpacing"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "double"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "6"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Espacio entre elementos de la lista"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "listBulletMarker"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "String"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "'•'"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Carácter usado para viñetas de listas desordenadas"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Resaltado de sintaxis"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "themeModifier: (base) => base.copyWith(\n  highlightTheme: MarkastHighlightTheme(\n    theme: MarkastCodeThemes.monokai,        // oscuro\n    // theme: MarkastCodeThemes.xcode,       // claro\n    // theme: MarkastCodeThemes.base16.dracula,\n  ),\n)"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme.fromTheme()"
+        },
+        {
+          "type": "text",
+          "value": " selecciona automáticamente "
+        },
+        {
+          "type": "code_inline",
+          "value": "monokai"
+        },
+        {
+          "type": "text",
+          "value": " (oscuro) o "
+        },
+        {
+          "type": "code_inline",
+          "value": "xcode"
+        },
+        {
+          "type": "text",
+          "value": " (claro). Pasa "
+        },
+        {
+          "type": "code_inline",
+          "value": "null"
+        },
+        {
+          "type": "text",
+          "value": " para deshabilitar el resaltado completamente."
+        }
+      ]
+    }
+  ]
+}

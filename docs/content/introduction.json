@@ -1,0 +1,283 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Introducción"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "markast es una librería de renderizado de documentos multiplataforma construida sobre un "
+        },
+        {
+          "type": "bold",
+          "children": [
+            {
+              "type": "text",
+              "value": "AST JSON tipado"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": ". El contenido se escribe en Markdown, se analiza en un árbol estructurado y se renderiza de forma nativa en cada plataforma — widgets de Flutter en móvil/escritorio, HTML semántico en la web."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Idea central"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "En lugar de pasar cadenas de HTML o Markdown sin procesar a un renderer, markast utiliza una representación intermedia bien definida:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "json",
+      "value": "{\n  \"type\": \"document\",\n  \"children\": [\n    {\n      \"type\": \"heading\",\n      \"level\": 1,\n      \"children\": [{ \"type\": \"text\", \"value\": \"Hola mundo\" }]\n    },\n    {\n      \"type\": \"paragraph\",\n      \"children\": [\n        { \"type\": \"text\", \"value\": \"Este es un texto \" },\n        { \"type\": \"bold\", \"children\": [{ \"type\": \"text\", \"value\": \"en negrita\" }] },\n        { \"type\": \"text\", \"value\": \".\" }\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Paquetes"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "head": {
+        "type": "table_head",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Paquete"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Plataforma"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": true,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Propósito"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "type": "table_body",
+        "rows": [
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "markast"
+                  },
+                  {
+                    "type": "text",
+                    "value": " (Python)"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Parser"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Convierte Markdown → AST JSON, HTML o de vuelta a Markdown"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "code_inline",
+                    "value": "markast"
+                  },
+                  {
+                    "type": "text",
+                    "value": " (Flutter)"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Renderer"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Renderiza un AST JSON como widgets nativos de Flutter"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Pipeline"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "",
+      "value": "article.md\n    │\n    ▼  python build.py\n    ├── article.html   ← este sitio usa este archivo\n    └── article.json   ← la app Flutter usa este archivo"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Sobre esta documentación"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Cada página de este sitio está escrita en Markdown, analizada con la librería Python "
+        },
+        {
+          "type": "code_inline",
+          "value": "markast"
+        },
+        {
+          "type": "text",
+          "value": " y convertida a HTML usando "
+        },
+        {
+          "type": "code_inline",
+          "value": "build.py"
+        },
+        {
+          "type": "text",
+          "value": ". El AST JSON también se genera junto a cada página — puedes verlo reemplazando "
+        },
+        {
+          "type": "code_inline",
+          "value": ".html"
+        },
+        {
+          "type": "text",
+          "value": " por "
+        },
+        {
+          "type": "code_inline",
+          "value": ".json"
+        },
+        {
+          "type": "text",
+          "value": " en la ruta del contenido."
+        }
+      ]
+    }
+  ]
+}

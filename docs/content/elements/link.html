@@ -1,0 +1,18 @@
+<article class="markast"><h1>Enlace</h1><p>Un hipervínculo inline con tooltip de título opcional.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "link",
+  "href": "https://flutter.dev",
+  "title": "Sitio web de Flutter",
+  "children": [
+    { "type": "text", "value": "Flutter" }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"link"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>href</code></td><td>string</td><td>✓</td><td>URL de destino</td></tr><tr><td><code>title</code></td><td>string</td><td>—</td><td>Tooltip al pasar el cursor</td></tr><tr><td><code>children</code></td><td>nodos inline</td><td>✓</td><td>Texto visible del enlace</td></tr></tbody></table><h2>Hacer los enlaces interactivos</h2><p>Los enlaces son <strong>no interactivos por defecto</strong> — pasa <code>onLinkTap</code> para habilitarlos:</p><pre><code class="lang-dart">markast.buildDocument(
+  context,
+  ast,
+  onLinkTap: (url, title) =&gt; launchUrl(Uri.parse(url)),
+)</code></pre><p>El cursor cambia a puntero al pasar por encima en escritorio/web, independientemente de si <code>onLinkTap</code> está definido.</p><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>linkTextStyle</code></td><td><code>TextStyle</code></td><td>Color, subrayado y decoración del texto del enlace</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  linkTextStyle: TextStyle(
+    color: Colors.teal,
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.teal,
+  ),
+)</code></pre></article>

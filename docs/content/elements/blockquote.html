@@ -1,0 +1,21 @@
+<article class="markast"><h1>Cita en Bloque</h1><p>Un bloque con sangría y borde lateral de acento, usado típicamente para citas destacadas o contenido referenciado.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "blockquote",
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [{ "type": "text", "value": "Ser o no ser." }]
+    }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"blockquote"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>children</code></td><td>nodos de bloque</td><td>✓</td><td>Contenido — párrafos, listas, incluso citas anidadas</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>blockquoteDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo y borde lateral del bloque de cita</td></tr><tr><td><code>blockquotePadding</code></td><td><code>EdgeInsets</code></td><td>Padding interno (por defecto <code>LTRB(16, 8, 8, 8)</code>)</td></tr><tr><td><code>blockquoteTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto — normalmente color atenuado y cursiva</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  blockquoteDecoration: BoxDecoration(
+    border: Border(
+      left: BorderSide(color: Colors.purple, width: 4),
+    ),
+    color: Colors.purple.withOpacity(.05),
+    borderRadius: BorderRadius.only(
+      topRight: Radius.circular(6),
+      bottomRight: Radius.circular(6),
+    ),
+  ),
+  blockquoteTextStyle: const TextStyle(fontStyle: FontStyle.italic),
+)</code></pre></article>

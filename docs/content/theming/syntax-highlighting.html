@@ -1,0 +1,32 @@
+<article class="markast"><h1>Resaltado de Sintaxis</h1><p>Los bloques de código se resaltan usando <code>re_highlight</code>, un port de Flutter de highlight.js. Se incluyen más de 180 temas y 180+ lenguajes.</p><h2>Temas por defecto</h2><p><code>MarkastTheme.fromTheme()</code> los establece automáticamente:</p><table><thead><tr><th>Brillo de la app</th><th>Tema por defecto</th></tr></thead><tbody><tr><td>Oscuro</td><td><code>MarkastCodeThemes.monokai</code></td></tr><tr><td>Claro</td><td><code>MarkastCodeThemes.xcode</code></td></tr></tbody></table><h2>Cambiar el tema</h2><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    highlightTheme: MarkastHighlightTheme(
+      theme: MarkastCodeThemes.tokyoNightDark,
+    ),
+  ),
+);</code></pre><h2>Temas disponibles</h2><p>Accede a todos los temas mediante <code>MarkastCodeThemes</code>:</p><pre><code class="lang-dart">// Temas oscuros
+MarkastCodeThemes.monokai
+MarkastCodeThemes.monokaiSublime
+MarkastCodeThemes.nightOwl
+MarkastCodeThemes.tokyoNightDark
+MarkastCodeThemes.atomOneDark
+MarkastCodeThemes.githubDark
+MarkastCodeThemes.vsCode2015
+MarkastCodeThemes.nord
+MarkastCodeThemes.dracula     // vía base16
+MarkastCodeThemes.shadesOfPurple
+
+// Temas claros
+MarkastCodeThemes.xcode
+MarkastCodeThemes.atomOneLight
+MarkastCodeThemes.githubLight
+MarkastCodeThemes.tokyoNightLight
+MarkastCodeThemes.stackoverflowLight
+MarkastCodeThemes.idea
+
+// Variantes Base16 (175 temas)
+MarkastCodeThemes.base16.dracula
+MarkastCodeThemes.base16.gruvboxDarkMedium
+MarkastCodeThemes.base16.solarizedDark
+MarkastCodeThemes.base16.solarizedLight
+MarkastCodeThemes.base16.rosPineDawn</code></pre><h2>Deshabilitar el resaltado</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(highlightTheme: null)</code></pre><h2>Lenguajes soportados</h2><p>El lenguaje se establece mediante el campo <code>language</code> de un nodo <code>code_block</code>. Los alias comunes funcionan automáticamente:</p><table><thead><tr><th>Alias</th><th>Equivale a</th></tr></thead><tbody><tr><td><code>js</code></td><td><code>javascript</code></td></tr><tr><td><code>ts</code></td><td><code>typescript</code></td></tr><tr><td><code>py</code></td><td><code>python</code></td></tr><tr><td><code>sh</code></td><td><code>bash</code></td></tr><tr><td><code>yml</code></td><td><code>yaml</code></td></tr><tr><td><code>rb</code></td><td><code>ruby</code></td></tr><tr><td><code>kt</code></td><td><code>kotlin</code></td></tr><tr><td><code>cs</code></td><td><code>csharp</code></td></tr></tbody></table></article>

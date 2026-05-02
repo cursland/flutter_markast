@@ -1,0 +1,353 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Visión General del Tema"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "markast es completamente personalizable. Cada propiedad visual es un primitivo de Flutter — no hay clases personalizadas que aprender."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Cómo se resuelven los temas"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Cuando se llama a "
+        },
+        {
+          "type": "code_inline",
+          "value": "buildDocument"
+        },
+        {
+          "type": "text",
+          "value": ", el tema se resuelve en orden de prioridad:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "children": [
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "code_inline",
+              "value": "theme"
+            },
+            {
+              "type": "text",
+              "value": " explícito pasado a "
+            },
+            {
+              "type": "code_inline",
+              "value": "Markast(theme: ...)"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "Callback "
+            },
+            {
+              "type": "code_inline",
+              "value": "themeModifier"
+            },
+            {
+              "type": "text",
+              "value": " aplicado a la base derivada"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "code_inline",
+              "value": "Theme.of(context).extension<MarkastTheme>()"
+            },
+            {
+              "type": "text",
+              "value": " (registrado en MaterialApp)"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "code_inline",
+              "value": "MarkastTheme.fromTheme(Theme.of(context))"
+            },
+            {
+              "type": "text",
+              "value": " — fallback derivado automáticamente"
+            }
+          ]
+        }
+      ],
+      "start": 1
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "En la mayoría de los casos usarás la opción 2 ("
+        },
+        {
+          "type": "code_inline",
+          "value": "themeModifier"
+        },
+        {
+          "type": "text",
+          "value": ") o la opción 3 (mediante "
+        },
+        {
+          "type": "code_inline",
+          "value": "ThemeData.extensions"
+        },
+        {
+          "type": "text",
+          "value": ")."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tema derivado automáticamente"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "code_inline",
+          "value": "MarkastTheme.fromTheme(ThemeData)"
+        },
+        {
+          "type": "text",
+          "value": " construye un tema completo a partir del "
+        },
+        {
+          "type": "code_inline",
+          "value": "ThemeData"
+        },
+        {
+          "type": "text",
+          "value": " de tu app:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "children": [
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "Los estilos de encabezado provienen de "
+            },
+            {
+              "type": "code_inline",
+              "value": "textTheme.headlineLarge/Medium/Small/titleLarge/Medium/Small"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "El estilo de cuerpo proviene de "
+            },
+            {
+              "type": "code_inline",
+              "value": "textTheme.bodyMedium"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "El color de los enlaces proviene de "
+            },
+            {
+              "type": "code_inline",
+              "value": "colorScheme.primary"
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "El tema de resaltado es "
+            },
+            {
+              "type": "code_inline",
+              "value": "monokai"
+            },
+            {
+              "type": "text",
+              "value": " (oscuro) o "
+            },
+            {
+              "type": "code_inline",
+              "value": "xcode"
+            },
+            {
+              "type": "text",
+              "value": " (claro)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Esto significa que markast se adapta automáticamente al tema Material de tu app."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Tema global mediante ThemeData.extensions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Registra el tema una vez en "
+        },
+        {
+          "type": "code_inline",
+          "value": "MaterialApp"
+        },
+        {
+          "type": "text",
+          "value": " y todas las instancias de "
+        },
+        {
+          "type": "code_inline",
+          "value": "Markast"
+        },
+        {
+          "type": "text",
+          "value": " lo recogerán:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "MaterialApp(\n  theme: ThemeData.light().copyWith(\n    extensions: [\n      MarkastTheme.fromTheme(ThemeData.light()).copyWith(\n        blockSpacing: 24,\n        listBulletMarker: '▸',\n      ),\n    ],\n  ),\n)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Sobreescritura por instancia"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Para personalizaciones puntuales sin tocar el tema de la app:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast(\n  themeModifier: (base) => base.copyWith(\n    blockSpacing: 32,\n    codeBlockShowCopyButton: false,\n  ),\n);"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Propiedades disponibles del tema"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Consulta la referencia completa en la página "
+        },
+        {
+          "type": "link",
+          "href": "content/api/markast-theme.html",
+          "title": null,
+          "children": [
+            {
+              "type": "text",
+              "value": "MarkastTheme"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<article class="markast"><h1>Inicio Rápido</h1><h2>1. Crear un AST</h2><p>Escribe el contenido en JSON o conviértelo desde Markdown:</p><pre><code class="lang-python">from markast import parse
+
+doc = parse("# ¡Hola!\n\nEsto es **markast**.")
+print(doc.to_json())</code></pre><h2>2. Renderizar en Flutter</h2><pre><code class="lang-dart">import 'package:markast/markast.dart';
+
+final _markast = Markast();
+
+// Ejemplo mínimo
+Widget build(BuildContext context) {
+  return _markast.buildDocument(context, {
+    'type': 'document',
+    'children': [
+      {
+        'type': 'heading',
+        'level': 1,
+        'children': [{'type': 'text', 'value': '¡Hola!'}],
+      },
+      {
+        'type': 'paragraph',
+        'children': [
+          {'type': 'text', 'value': 'Esto es '},
+          {
+            'type': 'bold',
+            'children': [{'type': 'text', 'value': 'markast'}],
+          },
+          {'type': 'text', 'value': '.'},
+        ],
+      },
+    ],
+  });
+}</code></pre><h2>3. Cargar desde un archivo JSON</h2><p>En una app real normalmente cargarás el AST desde un asset o una API:</p><pre><code class="lang-dart">import 'dart:convert';
+import 'package:flutter/services.dart';
+
+Future&lt;Map&lt;String, dynamic&gt;&gt; loadDoc(String asset) async {
+  final raw = await rootBundle.loadString(asset);
+  return jsonDecode(raw) as Map&lt;String, dynamic&gt;;
+}
+
+// En tu widget:
+FutureBuilder&lt;Map&lt;String, dynamic&gt;&gt;(
+  future: loadDoc('assets/docs/article.json'),
+  builder: (context, snapshot) {
+    if (!snapshot.hasData) return const CircularProgressIndicator();
+    return _markast.buildDocument(context, snapshot.data!);
+  },
+)</code></pre><h2>4. Gestionar enlaces</h2><p>Los enlaces son no interactivos por defecto. Pasa <code>onLinkTap</code> para habilitarlos:</p><pre><code class="lang-dart">_markast.buildDocument(
+  context,
+  ast,
+  onLinkTap: (url, title) =&gt; launchUrl(Uri.parse(url)),
+)</code></pre><h2>5. Personalizar el tema</h2><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    blockSpacing: 24,
+    highlightTheme: MarkastHighlightTheme(
+      theme: MarkastCodeThemes.monokai,
+    ),
+  ),
+);</code></pre></article>

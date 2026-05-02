@@ -1,0 +1,12 @@
+<article class="markast"><h1>themeModifier</h1><p><code>themeModifier</code> es la forma más sencilla de ajustar el tema predeterminado sin necesitar un <code>BuildContext</code> en el momento de la construcción.</p><h2>Sintaxis</h2><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    blockSpacing: 24,
+    listBulletMarker: '▸',
+  ),
+);</code></pre><p>El callback recibe el <code>MarkastTheme</code> completamente resuelto (derivado automáticamente de <code>ThemeData</code>) y devuelve una copia modificada. Solo especificas lo que quieres cambiar — el resto se mantiene como fue derivado.</p><h2>Tipo</h2><pre><code class="lang-dart">typedef MarkastThemeModifier = MarkastTheme Function(MarkastTheme base);</code></pre><h2>themeModifier vs. tema explícito</h2><table><thead><tr><th></th><th><code>themeModifier</code></th><th><code>theme</code></th></tr></thead><tbody><tr><td>Recibe la base derivada automáticamente</td><td>✓</td><td>✗</td></tr><tr><td>Necesita BuildContext</td><td>✗</td><td>Depende</td></tr><tr><td>Reemplazo completo</td><td>✗</td><td>✓</td></tr><tr><td>Sigue los cambios de ThemeData</td><td>✓</td><td>✗</td></tr></tbody></table><p>Usa <code>themeModifier</code> para ajustes. Usa <code>theme</code> solo cuando necesites control total y mantengas el tema tú mismo.</p><h2>Objetos anidados</h2><p>Para objetos de tema anidados como <code>MarkastHighlightTheme</code>, construye una nueva instancia directamente:</p><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  highlightTheme: MarkastHighlightTheme(
+    theme: MarkastCodeThemes.monokai,
+  ),
+)</code></pre><h2>Deshabilitar una funcionalidad</h2><p>Pasa <code>null</code> donde la propiedad lo acepta:</p><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  highlightTheme: null, // deshabilita el resaltado de sintaxis
+)</code></pre></article>

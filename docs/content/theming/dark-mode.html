@@ -1,0 +1,23 @@
+<article class="markast"><h1>Modo Oscuro</h1><p>markast sigue automáticamente el brillo de tu app cuando se usa <code>MarkastTheme.fromTheme()</code>.</p><h2>Cómo funciona</h2><p><code>fromTheme()</code> lee <code>ThemeData.brightness</code> para seleccionar los valores predeterminados apropiados:</p><ul><li>App oscura → tema de resaltado <code>monokai</code>, colores de texto apropiados para modo oscuro</li><li>App clara → tema de resaltado <code>xcode</code>, colores de texto apropiados para modo claro</li></ul><h2>Automático con MaterialApp</h2><p>Si tu app tiene tema claro y oscuro, markast se adapta a cada uno:</p><pre><code class="lang-dart">MaterialApp(
+  theme: ThemeData.light(),
+  darkTheme: ThemeData.dark(),
+  themeMode: ThemeMode.system,
+  // markast lee el brillo del tema activo
+)</code></pre><p>No se necesita ninguna configuración adicional.</p><h2>Tema oscuro manual</h2><p>Si necesitas un <code>MarkastTheme</code> oscuro personalizado:</p><pre><code class="lang-dart">MaterialApp(
+  theme: ThemeData.light().copyWith(
+    extensions: [
+      MarkastTheme.fromTheme(ThemeData.light()).copyWith(
+        highlightTheme: MarkastHighlightTheme(theme: MarkastCodeThemes.xcode),
+      ),
+    ],
+  ),
+  darkTheme: ThemeData.dark().copyWith(
+    extensions: [
+      MarkastTheme.fromTheme(ThemeData.dark()).copyWith(
+        highlightTheme: MarkastHighlightTheme(theme: MarkastCodeThemes.monokai),
+      ),
+    ],
+  ),
+)</code></pre><h2>Forzar un tema específico</h2><p>Pasa un tema explícito a <code>Markast()</code> para ignorar completamente el brillo de la app:</p><pre><code class="lang-dart">final markast = Markast(
+  theme: MarkastTheme.fromTheme(ThemeData.dark()),
+);</code></pre></article>

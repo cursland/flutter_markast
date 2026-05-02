@@ -1,0 +1,15 @@
+<article class="markast"><h1>Saltos de Línea</h1><p>Existen dos tipos de saltos para controlar el flujo dentro del contenido inline.</p><h2>Tipos</h2><table><thead><tr><th>Tipo</th><th>HTML</th><th>Comportamiento</th></tr></thead><tbody><tr><td><code>softbreak</code></td><td>nueva línea</td><td>Se colapsa a un espacio en la mayoría de los renderers</td></tr><tr><td><code>hardbreak</code></td><td><code>&lt;br&gt;</code></td><td>Fuerza un salto de línea visible</td></tr></tbody></table><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "paragraph",
+  "children": [
+    { "type": "text",      "value": "Primera línea" },
+    { "type": "hardbreak" },
+    { "type": "text",      "value": "Segunda línea" }
+  ]
+}</code></pre><pre><code class="lang-json">{
+  "type": "paragraph",
+  "children": [
+    { "type": "text",     "value": "Texto" },
+    { "type": "softbreak" },
+    { "type": "text",     "value": "unido" }
+  ]
+}</code></pre><h2>Comportamiento en Flutter</h2><ul><li><code>hardbreak</code> → inserta <code>\n</code> en el árbol de <code>TextSpan</code>, forzando una nueva línea</li><li><code>softbreak</code> → inserta un carácter de espacio</li></ul><p>Ninguno tiene propiedades de tema.</p></article>

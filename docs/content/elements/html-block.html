@@ -1,0 +1,18 @@
+<article class="markast"><h1>Bloque HTML</h1><p>Un bloque HTML sin procesar que se pasa tal cual. Solo tiene significado en contextos web — en Flutter se renderiza como un bloque de código con estilo que muestra el HTML sin procesar.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "html_block",
+  "value": "&lt;div class=\"callout\"&gt;Contenido HTML personalizado&lt;/div&gt;"
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"html_block"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>value</code></td><td>string</td><td>✓</td><td>HTML sin procesar a renderizar</td></tr></tbody></table><h2>Comportamiento en Flutter</h2><p>El renderer de Flutter muestra el código HTML fuente en un cuadro con estilo, ya que el HTML no puede renderizarse como widgets nativos. Usa un renderer de bloque personalizado si necesitas manejar el HTML de otra forma:</p><pre><code class="lang-dart">class HtmlBlockRenderer extends BlockRenderer {
+  const HtmlBlockRenderer();
+
+  @override
+  String get type =&gt; 'html_block';
+
+  @override
+  Widget build(RenderContext ctx, Map&lt;String, dynamic&gt; node) {
+    final html = (node['value'] as String?) ?? '';
+    return WebViewWidget(html: html); // tu implementación de web view
+  }
+}
+
+final markast = Markast()
+  ..registerBlock(const HtmlBlockRenderer());</code></pre><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>htmlBlockDecoration</code></td><td><code>BoxDecoration</code></td><td>Decoración del contenedor de visualización alternativa</td></tr><tr><td><code>htmlBlockPadding</code></td><td><code>EdgeInsets</code></td><td>Padding dentro del contenedor alternativo</td></tr><tr><td><code>htmlBlockTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto del código HTML sin procesar</td></tr></tbody></table></article>

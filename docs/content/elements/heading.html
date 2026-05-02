@@ -1,0 +1,32 @@
+<article class="markast"><h1>Encabezado</h1><p>Un nodo de encabezado se corresponde con <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> en HTML y con un widget <code>Text</code> con estilo escalado en Flutter. El nivel controla la jerarquía visual.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "heading",
+  "level": 2,
+  "children": [
+    { "type": "text", "value": "Título de sección" }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"heading"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>level</code></td><td><code>1</code>–<code>6</code></td><td>✓</td><td>Nivel del encabezado</td></tr><tr><td><code>children</code></td><td>nodos inline</td><td>✓</td><td>Contenido del encabezado — puede incluir negrita, cursiva, código, enlaces</td></tr><tr><td><code>id</code></td><td>string</td><td>—</td><td>Atributo id HTML para anclas (<code>&lt;h2 id="..."&gt;</code>)</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><p>Controla la apariencia de los encabezados mediante <code>MarkastTheme</code>:</p><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Controla</th></tr></thead><tbody><tr><td><code>h1TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h1&gt;</code></td></tr><tr><td><code>h2TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h2&gt;</code></td></tr><tr><td><code>h3TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h3&gt;</code></td></tr><tr><td><code>h4TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h4&gt;</code></td></tr><tr><td><code>h5TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h5&gt;</code></td></tr><tr><td><code>h6TextStyle</code></td><td><code>TextStyle</code></td><td>Tamaño, peso, color de <code>&lt;h6&gt;</code></td></tr><tr><td><code>headingPadding</code></td><td><code>EdgeInsets</code></td><td>Espacio superior e inferior en todos los niveles</td></tr></tbody></table><p><code>MarkastTheme.fromTheme()</code> deriva automáticamente los seis estilos a partir de <code>ThemeData.textTheme</code> de tu app, por lo que respetan tu tema Material de serie.</p><h2>Personalización</h2><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    h1TextStyle: const TextStyle(
+      fontSize: 36,
+      fontWeight: FontWeight.w800,
+      letterSpacing: -0.5,
+    ),
+    h2TextStyle: const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+    ),
+    headingPadding: const EdgeInsets.only(top: 32, bottom: 8),
+  ),
+);</code></pre><h2>Con id de ancla</h2><p>El campo <code>id</code> genera un ancla HTML y es útil para enlaces profundos dentro del documento:</p><pre><code class="lang-json">{
+  "type": "heading",
+  "level": 2,
+  "id": "instalacion",
+  "children": [{ "type": "text", "value": "Instalación" }]
+}</code></pre><p>Renderiza como <code>&lt;h2 id="instalacion"&gt;Instalación&lt;/h2&gt;</code>, enlazable mediante <code>#instalacion</code>.</p><h2>Hijos inline</h2><p>Los hijos de un encabezado siguen las mismas reglas que los inline de un párrafo — negrita, cursiva, código y enlaces son todos válidos:</p><pre><code class="lang-json">{
+  "type": "heading",
+  "level": 3,
+  "children": [
+    { "type": "text", "value": "El método " },
+    { "type": "code_inline", "value": "buildDocument" }
+  ]
+}</code></pre></article>

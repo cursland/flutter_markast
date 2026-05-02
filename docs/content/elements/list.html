@@ -1,0 +1,27 @@
+<article class="markast"><h1>Lista</h1><p>Listas ordenadas y desordenadas, con soporte para anidamiento y elementos de lista de tareas.</p><h2>Estructura AST</h2><h3>Lista desordenada</h3><pre><code class="lang-json">{
+  "type": "list",
+  "ordered": false,
+  "children": [
+    {
+      "type": "list_item",
+      "children": [{ "type": "text", "value": "Primer elemento" }]
+    },
+    {
+      "type": "list_item",
+      "children": [{ "type": "text", "value": "Segundo elemento" }]
+    }
+  ]
+}</code></pre><h3>Lista ordenada</h3><pre><code class="lang-json">{
+  "type": "list",
+  "ordered": true,
+  "start": 1,
+  "children": [...]
+}</code></pre><h3>Elemento de lista de tareas</h3><pre><code class="lang-json">{
+  "type": "list_item",
+  "checked": true,
+  "children": [{ "type": "text", "value": "Tarea completada" }]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"list"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>ordered</code></td><td>bool</td><td>✓</td><td><code>true</code> para numerada, <code>false</code> para viñetas</td></tr><tr><td><code>start</code></td><td>int</td><td>—</td><td>Número inicial para listas ordenadas (por defecto <code>1</code>)</td></tr><tr><td><code>children</code></td><td><code>list_item[]</code></td><td>✓</td><td>Elementos de la lista</td></tr><tr><td><code>list_item.checked</code></td><td>bool</td><td>—</td><td>Presente en elementos de lista de tareas</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>listMarkerTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de la viñeta o número</td></tr><tr><td><code>listMarkerWidth</code></td><td><code>double</code></td><td>Ancho de la columna del marcador (por defecto <code>22</code>)</td></tr><tr><td><code>listItemSpacing</code></td><td><code>double</code></td><td>Espacio vertical entre elementos (por defecto <code>6</code>)</td></tr><tr><td><code>listBulletMarker</code></td><td><code>String</code></td><td>Carácter de viñeta para listas desordenadas (por defecto <code>•</code>)</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  listBulletMarker: '▸',
+  listItemSpacing: 8,
+  listMarkerWidth: 24,
+)</code></pre></article>

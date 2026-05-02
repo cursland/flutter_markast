@@ -1,0 +1,20 @@
+<article class="markast"><h1>Clase Markast</h1><p>El punto de entrada principal para el renderizado. Con una instancia por app es suficiente.</p><h2>Constructores</h2><h3><code>Markast()</code></h3><p>Crea una instancia precargada con todos los renderers oficiales.</p><pre><code class="lang-dart">final markast = Markast();
+
+// Con ajustes de tema
+final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(blockSpacing: 24),
+);
+
+// Con reemplazo completo del tema
+final markast = Markast(
+  theme: MarkastTheme.fromTheme(myThemeData),
+);</code></pre><table><thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>theme</code></td><td><code>MarkastTheme?</code></td><td>Reemplaza por completo el tema derivado automáticamente</td></tr><tr><td><code>themeModifier</code></td><td><code>MarkastThemeModifier?</code></td><td>Callback para ajustar el tema derivado automáticamente</td></tr></tbody></table><h3><code>Markast.empty()</code></h3><p>Crea una instancia <strong>sin renderers</strong>. Úsalo cuando quieras registrar solo tus propios renderers:</p><pre><code class="lang-dart">final markast = Markast.empty()
+  ..registerBlock(MyHeadingRenderer())
+  ..registerBlock(MyParagraphRenderer());</code></pre><h2>Métodos</h2><h3><code>buildDocument</code></h3><p>Renderiza el nodo raíz de un AST JSON de markast en un árbol de widgets.</p><pre><code class="lang-dart">Widget buildDocument(
+  BuildContext context,
+  Map&lt;String, dynamic&gt; document, {
+  void Function(String url, String? title)? onLinkTap,
+  MarkastImageBuilder? imageBuilder,
+  MarkastVideoBuilder? videoBuilder,
+  void Function(String code)? onCodeCopy,
+})</code></pre><table><thead><tr><th>Parámetro</th><th>Descripción</th></tr></thead><tbody><tr><td><code>context</code></td><td><code>BuildContext</code> de Flutter — se usa para resolver el tema</td></tr><tr><td><code>document</code></td><td>El nodo raíz <code>{"type": "document", ...}</code></td></tr><tr><td><code>onLinkTap</code></td><td>Se llama al tocar un enlace. Los enlaces no son interactivos si es <code>null</code></td></tr><tr><td><code>imageBuilder</code></td><td>Fábrica de widgets personalizada para imágenes</td></tr><tr><td><code>videoBuilder</code></td><td>Fábrica de widgets personalizada para videos</td></tr><tr><td><code>onCodeCopy</code></td><td>Se llama al tocar el botón de copiar. Por defecto usa <code>Clipboard.setData</code></td></tr></tbody></table><h3><code>registerBlock</code></h3><p>Registra un renderer de bloque personalizado, reemplazando el existente para el mismo <code>type</code>.</p><pre><code class="lang-dart">markast.registerBlock(MyVideoRenderer());</code></pre><h3><code>registerInline</code></h3><p>Registra un renderer de inline personalizado.</p><pre><code class="lang-dart">markast.registerInline(MyHighlightRenderer());</code></pre><h3><code>registerWidget</code></h3><p>Registra un renderer de widget personalizado.</p><pre><code class="lang-dart">markast.registerWidget(MyCarouselRenderer());</code></pre><h3><code>resolveTheme</code></h3><p>Devuelve el <code>MarkastTheme</code> resuelto para un contexto dado. Útil si necesitas el tema fuera de una llamada de renderizado.</p><pre><code class="lang-dart">final theme = markast.resolveTheme(context);</code></pre><p>Orden de prioridad:</p><ol><li><code>theme</code> explícito pasado al constructor</li><li><code>themeModifier</code> aplicado al tema base</li><li><code>Theme.of(context).extension&lt;MarkastTheme&gt;()</code></li><li><code>MarkastTheme.fromTheme(Theme.of(context))</code></li></ol></article>

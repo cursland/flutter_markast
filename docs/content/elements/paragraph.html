@@ -1,0 +1,13 @@
+<article class="markast"><h1>Párrafo</h1><p>El contenedor de bloque por defecto para contenido inline. La mayor parte del texto de cuerpo vive en nodos de párrafo.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "paragraph",
+  "children": [
+    { "type": "text", "value": "Texto plano, " },
+    { "type": "bold", "children": [{ "type": "text", "value": "negrita" }] },
+    { "type": "text", "value": ", y " },
+    { "type": "italic", "children": [{ "type": "text", "value": "cursiva" }] },
+    { "type": "text", "value": " en línea." }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"paragraph"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>children</code></td><td>nodos inline</td><td>✓</td><td>Contenido del párrafo</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>bodyTextStyle</code></td><td><code>TextStyle</code></td><td>Fuente base, tamaño y color de todo el texto del párrafo</td></tr><tr><td><code>paragraphPadding</code></td><td><code>EdgeInsets</code></td><td>Padding adicional alrededor de cada párrafo (por defecto <code>EdgeInsets.zero</code>)</td></tr><tr><td><code>blockSpacing</code></td><td><code>double</code></td><td>Espacio vertical tras el párrafo</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  bodyTextStyle: const TextStyle(fontSize: 16, height: 1.8),
+  blockSpacing: 20,
+)</code></pre></article>

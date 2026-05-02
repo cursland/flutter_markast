@@ -1,0 +1,21 @@
+<article class="markast"><h1>Imagen</h1><p>Una imagen a nivel de bloque con texto alternativo y título de pie de foto opcionales.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "image",
+  "src": "https://example.com/photo.jpg",
+  "alt": "Un paisaje",
+  "title": "Foto de Unsplash"
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"image"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>src</code></td><td>string</td><td>✓</td><td>URL o ruta de asset de la imagen</td></tr><tr><td><code>alt</code></td><td>string</td><td>—</td><td>Descripción de accesibilidad</td></tr><tr><td><code>title</code></td><td>string</td><td>—</td><td>Pie de foto mostrado bajo la imagen</td></tr><tr><td><code>width</code></td><td>number</td><td>—</td><td>Ancho de visualización objetivo</td></tr><tr><td><code>height</code></td><td>number</td><td>—</td><td>Alto de visualización objetivo</td></tr></tbody></table><h2>Detección del origen</h2><p>El cargador por defecto detecta automáticamente el tipo de origen:</p><table><thead><tr><th>Prefijo</th><th>Cargador</th></tr></thead><tbody><tr><td><code>http://</code> o <code>https://</code></td><td><code>Image.network</code> con timeout</td></tr><tr><td><code>file://</code></td><td><code>Image.file</code></td></tr><tr><td>cualquier otro</td><td><code>Image.asset</code></td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>imageBorderRadius</code></td><td><code>BorderRadius</code></td><td>Redondeo de las esquinas de la imagen</td></tr><tr><td><code>imageFit</code></td><td><code>BoxFit</code></td><td>Cómo ocupa la imagen su espacio (por defecto <code>BoxFit.contain</code>)</td></tr><tr><td><code>imageTitleTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto del pie de foto</td></tr><tr><td><code>imageTitlePadding</code></td><td><code>EdgeInsets</code></td><td>Espacio entre imagen y pie de foto</td></tr><tr><td><code>imagePlaceholderDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo mostrado mientras carga</td></tr><tr><td><code>imagePlaceholderTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto alternativo en el placeholder</td></tr><tr><td><code>imagePlaceholderHeight</code></td><td><code>double</code></td><td>Alto del placeholder antes de cargar (por defecto <code>120</code>)</td></tr></tbody></table><h2>Builder de imagen personalizado</h2><p>Reemplaza el widget por defecto para cualquier nodo de imagen:</p><pre><code class="lang-dart">markast.buildDocument(
+  context,
+  ast,
+  imageBuilder: (src, {width, height, fit = BoxFit.contain, semanticLabel}) {
+    return CachedNetworkImage(
+      imageUrl: src,
+      width: width,
+      height: height,
+      fit: fit,
+      placeholder: (_, __) =&gt; const CircularProgressIndicator(),
+    );
+  },
+)</code></pre><h2>Personalizar el marco</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  imageBorderRadius: BorderRadius.circular(12),
+  imageFit: BoxFit.cover,
+)</code></pre></article>

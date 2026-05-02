@@ -1,0 +1,26 @@
+<article class="markast"><h1>Tabla</h1><p>Una cuadrícula estructurada de filas y columnas con cabecera opcional y alineación por celda.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "table",
+  "head": [
+    {
+      "type": "table_row",
+      "children": [
+        { "type": "table_cell", "is_header": true, "align": "left",   "children": [{"type": "text", "value": "Nombre"}] },
+        { "type": "table_cell", "is_header": true, "align": "center", "children": [{"type": "text", "value": "Tipo"}] },
+        { "type": "table_cell", "is_header": true, "align": "right",  "children": [{"type": "text", "value": "Por defecto"}] }
+      ]
+    }
+  ],
+  "body": [
+    {
+      "type": "table_row",
+      "children": [
+        { "type": "table_cell", "children": [{"type": "text", "value": "blockSpacing"}] },
+        { "type": "table_cell", "children": [{"type": "code_inline", "value": "double"}] },
+        { "type": "table_cell", "children": [{"type": "text", "value": "16"}] }
+      ]
+    }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"table"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>head</code></td><td><code>table_row[]</code></td><td>—</td><td>Filas de cabecera</td></tr><tr><td><code>body</code></td><td><code>table_row[]</code></td><td>—</td><td>Filas de cuerpo</td></tr><tr><td><code>table_cell.is_header</code></td><td>bool</td><td>—</td><td>Renderiza como <code>&lt;th&gt;</code> en lugar de <code>&lt;td&gt;</code></td></tr><tr><td><code>table_cell.align</code></td><td><code>"left"</code>, <code>"center"</code>, <code>"right"</code></td><td>—</td><td>Alineación del texto de la celda</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>tableDecoration</code></td><td><code>BoxDecoration</code></td><td>Borde exterior y fondo de la tabla</td></tr><tr><td><code>tableHeaderRowDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo de la fila de cabecera</td></tr><tr><td><code>tableHeaderTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto de las celdas de cabecera</td></tr><tr><td><code>tableCellTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto de las celdas de cuerpo</td></tr><tr><td><code>tableCellPadding</code></td><td><code>EdgeInsets</code></td><td>Padding dentro de cada celda</td></tr><tr><td><code>tableInnerBorderSide</code></td><td><code>BorderSide</code></td><td>Estilo de las líneas internas de la cuadrícula</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  tableCellPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+  tableHeaderTextStyle: const TextStyle(fontWeight: FontWeight.w700),
+)</code></pre></article>

@@ -1,0 +1,22 @@
+<article class="markast"><h1>Introducción</h1><p>markast es una librería de renderizado de documentos multiplataforma construida sobre un <strong>AST JSON tipado</strong>. El contenido se escribe en Markdown, se analiza en un árbol estructurado y se renderiza de forma nativa en cada plataforma — widgets de Flutter en móvil/escritorio, HTML semántico en la web.</p><h2>Idea central</h2><p>En lugar de pasar cadenas de HTML o Markdown sin procesar a un renderer, markast utiliza una representación intermedia bien definida:</p><pre><code class="lang-json">{
+  "type": "document",
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [{ "type": "text", "value": "Hola mundo" }]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        { "type": "text", "value": "Este es un texto " },
+        { "type": "bold", "children": [{ "type": "text", "value": "en negrita" }] },
+        { "type": "text", "value": "." }
+      ]
+    }
+  ]
+}</code></pre><p>Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia.</p><h2>Paquetes</h2><table><thead><tr><th>Paquete</th><th>Plataforma</th><th>Propósito</th></tr></thead><tbody><tr><td><code>markast</code> (Python)</td><td>Parser</td><td>Convierte Markdown → AST JSON, HTML o de vuelta a Markdown</td></tr><tr><td><code>markast</code> (Flutter)</td><td>Renderer</td><td>Renderiza un AST JSON como widgets nativos de Flutter</td></tr></tbody></table><h2>Pipeline</h2><pre><code>article.md
+    │
+    ▼  python build.py
+    ├── article.html   ← este sitio usa este archivo
+    └── article.json   ← la app Flutter usa este archivo</code></pre><h2>Sobre esta documentación</h2><p>Cada página de este sitio está escrita en Markdown, analizada con la librería Python <code>markast</code> y convertida a HTML usando <code>build.py</code>. El AST JSON también se genera junto a cada página — puedes verlo reemplazando <code>.html</code> por <code>.json</code> en la ruta del contenido.</p></article>

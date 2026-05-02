@@ -1,0 +1,70 @@
+<article class="markast"><h1>Renderers Personalizados</h1><p>Reemplaza o extiende cualquier renderer oficial, o añade soporte para tipos de nodos completamente nuevos.</p><h2>Renderer de bloque</h2><p>Extiende <code>BlockRenderer</code> e implementa <code>type</code> + <code>build</code>:</p><pre><code class="lang-dart">import 'package:markast/markast.dart';
+
+class MyHeadingRenderer extends BlockRenderer {
+  const MyHeadingRenderer();
+
+  @override
+  String get type =&gt; 'heading';
+
+  @override
+  Widget build(RenderContext ctx, Map&lt;String, dynamic&gt; node) {
+    final level = (node['level'] as int?) ?? 1;
+    final style = switch (level) {
+      1 =&gt; ctx.theme.h1TextStyle,
+      2 =&gt; ctx.theme.h2TextStyle,
+      _ =&gt; ctx.theme.h3TextStyle,
+    };
+    final spans = ctx.markast.buildInlines(
+      ctx,
+      node['children'] as List?,
+      style,
+    );
+    return Padding(
+      padding: ctx.theme.headingPadding,
+      child: Text.rich(TextSpan(style: style, children: spans)),
+    );
+  }
+}</code></pre><p>Regístralo en tu instancia de <code>Markast</code>:</p><pre><code class="lang-dart">final markast = Markast()
+  ..registerBlock(const MyHeadingRenderer());</code></pre><h2>Renderer de inline</h2><p>Extiende <code>InlineRenderer</code> e implementa <code>type</code> + <code>build</code>:</p><pre><code class="lang-dart">class MyHighlightRenderer extends InlineRenderer {
+  const MyHighlightRenderer();
+
+  @override
+  String get type =&gt; 'highlight';  // tipo de nodo personalizado
+
+  @override
+  InlineSpan build(
+    RenderContext ctx,
+    Map&lt;String, dynamic&gt; node,
+    TextStyle style,
+  ) {
+    final children = ctx.markast.buildInlines(
+      ctx,
+      node['children'] as List?,
+      style,
+    );
+    return TextSpan(
+      style: style.copyWith(backgroundColor: Colors.yellow.withOpacity(.4)),
+      children: children,
+    );
+  }
+}</code></pre><h2>Renderer de widget</h2><p>Extiende <code>WidgetNodeRenderer</code> para manejar los nodos <code>:::widget</code> del parser Python:</p><pre><code class="lang-dart">class BannerWidgetRenderer extends WidgetNodeRenderer {
+  const BannerWidgetRenderer();
+
+  @override
+  String get name =&gt; 'banner';
+
+  @override
+  Widget build(
+    RenderContext ctx,
+    Map&lt;String, dynamic&gt; props,
+    Map&lt;String, List&lt;Map&lt;String, dynamic&gt;&gt;&gt; slots,
+  ) {
+    final title = props['title'] as String? ?? '';
+    return Container(
+      color: Colors.blue.shade100,
+      padding: const EdgeInsets.all(16),
+      child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+    );
+  }
+}</code></pre><p>La sintaxis Markdown correspondiente (parser Python):</p><pre><code>:::widget banner title="Bienvenido"
+:::</code></pre><h2>RenderContext</h2><p>Cada renderer recibe un <code>RenderContext</code> con:</p><table><thead><tr><th>Campo</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>context</code></td><td><code>BuildContext</code></td><td>Contexto de build de Flutter</td></tr><tr><td><code>theme</code></td><td><code>MarkastTheme</code></td><td>Tema resuelto</td></tr><tr><td><code>markast</code></td><td><code>Markast</code></td><td>La instancia del renderer (para llamadas recursivas)</td></tr><tr><td><code>onLinkTap</code></td><td>callback?</td><td>Manejador de toque en enlace</td></tr><tr><td><code>imageBuilder</code></td><td>callback?</td><td>Fábrica de imágenes personalizada</td></tr><tr><td><code>videoBuilder</code></td><td>callback?</td><td>Fábrica de videos personalizada</td></tr><tr><td><code>onCodeCopy</code></td><td>callback?</td><td>Manejador del botón de copiar</td></tr><tr><td><code>scratch</code></td><td><code>Map&lt;String, dynamic&gt;</code></td><td>Estado mutable compartido entre renderers (usado para indexar notas al pie)</td></tr></tbody></table></article>

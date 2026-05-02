@@ -1,0 +1,12 @@
+<article class="markast"><h1>Tachado y Subrayado</h1><p>Decoraciones inline para texto eliminado o resaltado.</p><h2>Estructura AST</h2><pre><code class="lang-json">{ "type": "strikethrough", "children": [{ "type": "text", "value": "precio antiguo" }] }
+{ "type": "underline",     "children": [{ "type": "text", "value": "importante" }] }</code></pre><table><thead><tr><th>Tipo</th><th>HTML</th><th>Caso de uso</th></tr></thead><tbody><tr><td><code>strikethrough</code></td><td><code>&lt;del&gt;</code></td><td>Contenido eliminado, texto tachado</td></tr><tr><td><code>underline</code></td><td><code>&lt;u&gt;</code></td><td>Énfasis, anotaciones de documento</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>strikethroughTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de decoración (por defecto <code>TextDecoration.lineThrough</code>)</td></tr><tr><td><code>underlineTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de decoración (por defecto <code>TextDecoration.underline</code>)</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  strikethroughTextStyle: TextStyle(
+    decoration: TextDecoration.lineThrough,
+    color: Colors.red.withOpacity(.6),
+  ),
+  underlineTextStyle: TextStyle(
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.blue,
+    decorationThickness: 2,
+  ),
+)</code></pre></article>

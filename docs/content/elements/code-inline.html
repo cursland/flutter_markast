@@ -1,0 +1,11 @@
+<article class="markast"><h1>Código en Línea</h1><p>Un span monoespaciado para referencias de código cortas dentro de una oración.</p><h2>Estructura AST</h2><pre><code class="lang-json">{ "type": "code_inline", "value": "buildDocument" }</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"code_inline"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>value</code></td><td>string</td><td>✓</td><td>El texto de código sin procesar</td></tr></tbody></table><p>A diferencia de los nodos de bloque, el código inline no tiene <code>children</code> — solo un string <code>value</code>.</p><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>codeInlineTextStyle</code></td><td><code>TextStyle</code></td><td>Fuente monoespaciada y tamaño</td></tr><tr><td><code>codeInlineDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo y borde de la píldora de código</td></tr><tr><td><code>codeInlinePadding</code></td><td><code>EdgeInsets</code></td><td>Padding interno (por defecto <code>horizontal: 5, vertical: 2</code>)</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  codeInlineTextStyle: TextStyle(
+    fontFamily: 'JetBrains Mono',
+    fontSize: 13,
+  ),
+  codeInlineDecoration: BoxDecoration(
+    color: Colors.deepPurple.withOpacity(.08),
+    borderRadius: BorderRadius.circular(4),
+    border: Border.all(color: Colors.deepPurple.withOpacity(.2)),
+  ),
+)</code></pre></article>

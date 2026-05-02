@@ -1,0 +1,127 @@
+{
+  "type": "document",
+  "version": "1.0",
+  "warnings": [],
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Inicio Rápido"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "1. Crear un AST"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Escribe el contenido en JSON o conviértelo desde Markdown:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "python",
+      "value": "from markast import parse\n\ndoc = parse(\"# ¡Hola!\\n\\nEsto es **markast**.\")\nprint(doc.to_json())"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "2. Renderizar en Flutter"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "import 'package:markast/markast.dart';\n\nfinal _markast = Markast();\n\n// Ejemplo mínimo\nWidget build(BuildContext context) {\n  return _markast.buildDocument(context, {\n    'type': 'document',\n    'children': [\n      {\n        'type': 'heading',\n        'level': 1,\n        'children': [{'type': 'text', 'value': '¡Hola!'}],\n      },\n      {\n        'type': 'paragraph',\n        'children': [\n          {'type': 'text', 'value': 'Esto es '},\n          {\n            'type': 'bold',\n            'children': [{'type': 'text', 'value': 'markast'}],\n          },\n          {'type': 'text', 'value': '.'},\n        ],\n      },\n    ],\n  });\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "3. Cargar desde un archivo JSON"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "En una app real normalmente cargarás el AST desde un asset o una API:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "import 'dart:convert';\nimport 'package:flutter/services.dart';\n\nFuture<Map<String, dynamic>> loadDoc(String asset) async {\n  final raw = await rootBundle.loadString(asset);\n  return jsonDecode(raw) as Map<String, dynamic>;\n}\n\n// En tu widget:\nFutureBuilder<Map<String, dynamic>>(\n  future: loadDoc('assets/docs/article.json'),\n  builder: (context, snapshot) {\n    if (!snapshot.hasData) return const CircularProgressIndicator();\n    return _markast.buildDocument(context, snapshot.data!);\n  },\n)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "4. Gestionar enlaces"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Los enlaces son no interactivos por defecto. Pasa "
+        },
+        {
+          "type": "code_inline",
+          "value": "onLinkTap"
+        },
+        {
+          "type": "text",
+          "value": " para habilitarlos:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "_markast.buildDocument(\n  context,\n  ast,\n  onLinkTap: (url, title) => launchUrl(Uri.parse(url)),\n)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "5. Personalizar el tema"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final markast = Markast(\n  themeModifier: (base) => base.copyWith(\n    blockSpacing: 24,\n    highlightTheme: MarkastHighlightTheme(\n      theme: MarkastCodeThemes.monokai,\n    ),\n  ),\n);"
+    }
+  ]
+}

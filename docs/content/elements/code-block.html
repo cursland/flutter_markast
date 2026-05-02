@@ -1,0 +1,27 @@
+<article class="markast"><h1>Bloque de Código</h1><p>Un bloque de código delimitado con resaltado de sintaxis opcional, insignia de lenguaje, encabezado con nombre de archivo y botón de copiar.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "code_block",
+  "language": "dart",
+  "value": "final markast = Markast();\nmarkast.buildDocument(context, ast);"
+}</code></pre><p>Con nombre de archivo:</p><pre><code class="lang-json">{
+  "type": "code_block",
+  "language": "dart",
+  "filename": "lib/main.dart",
+  "value": "void main() =&gt; runApp(const App());"
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"code_block"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>value</code></td><td>string</td><td>✓</td><td>Contenido del código sin procesar</td></tr><tr><td><code>language</code></td><td>string</td><td>—</td><td>Identificador de lenguaje para el resaltado (<code>dart</code>, <code>python</code>, <code>json</code>, …)</td></tr><tr><td><code>filename</code></td><td>string</td><td>—</td><td>Se muestra en la barra de encabezado sobre el código</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Controla</th></tr></thead><tbody><tr><td><code>codeBlockTextStyle</code></td><td><code>TextStyle</code></td><td>Fuente y tamaño del texto del código</td></tr><tr><td><code>codeBlockDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo y borde del bloque completo</td></tr><tr><td><code>codeBlockPadding</code></td><td><code>EdgeInsets</code></td><td>Padding interno del área de código</td></tr><tr><td><code>codeBlockHeaderDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo de la barra de encabezado</td></tr><tr><td><code>codeBlockHeaderPadding</code></td><td><code>EdgeInsets</code></td><td>Padding de la barra de encabezado</td></tr><tr><td><code>codeBlockFilenameTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de la etiqueta de nombre de archivo</td></tr><tr><td><code>codeBlockLanguageTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto de la insignia de lenguaje</td></tr><tr><td><code>codeBlockLanguageBadgeDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo de la píldora de lenguaje</td></tr><tr><td><code>codeBlockLanguageBadgePadding</code></td><td><code>EdgeInsets</code></td><td>Padding dentro de la píldora de lenguaje</td></tr><tr><td><code>codeBlockShowCopyButton</code></td><td><code>bool</code></td><td>Mostrar u ocultar el botón de copiar (por defecto <code>true</code>)</td></tr><tr><td><code>codeBlockCopyIconColor</code></td><td><code>Color</code></td><td>Color del icono de copiar</td></tr><tr><td><code>codeBlockCopyIconSize</code></td><td><code>double</code></td><td>Tamaño del icono de copiar</td></tr><tr><td><code>highlightTheme</code></td><td><code>MarkastHighlightTheme?</code></td><td>Tema de resaltado de sintaxis — <code>null</code> deshabilita el resaltado</td></tr></tbody></table><h2>Resaltado de sintaxis</h2><p>El resaltado está impulsado por <code>re_highlight</code>. Establece el tema mediante <code>MarkastTheme</code>:</p><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    highlightTheme: MarkastHighlightTheme(
+      theme: MarkastCodeThemes.monokai,
+    ),
+  ),
+);</code></pre><p><code>MarkastTheme.fromTheme()</code> selecciona automáticamente <code>monokai</code> (oscuro) o <code>xcode</code> (claro) según el brillo de tu app.</p><h2>Callback de copiar</h2><p>Por defecto el botón de copiar escribe al portapapeles del sistema. Sobreescríbelo con <code>onCodeCopy</code>:</p><pre><code class="lang-dart">markast.buildDocument(
+  context,
+  ast,
+  onCodeCopy: (code) {
+    Clipboard.setData(ClipboardData(text: code));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('¡Copiado!')),
+    );
+  },
+);</code></pre><h2>Deshabilitar el botón de copiar</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  codeBlockShowCopyButton: false,
+)</code></pre></article>

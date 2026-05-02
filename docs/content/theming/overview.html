@@ -1,0 +1,15 @@
+<article class="markast"><h1>Visión General del Tema</h1><p>markast es completamente personalizable. Cada propiedad visual es un primitivo de Flutter — no hay clases personalizadas que aprender.</p><h2>Cómo se resuelven los temas</h2><p>Cuando se llama a <code>buildDocument</code>, el tema se resuelve en orden de prioridad:</p><ol><li><code>theme</code> explícito pasado a <code>Markast(theme: ...)</code></li><li>Callback <code>themeModifier</code> aplicado a la base derivada</li><li><code>Theme.of(context).extension&lt;MarkastTheme&gt;()</code> (registrado en MaterialApp)</li><li><code>MarkastTheme.fromTheme(Theme.of(context))</code> — fallback derivado automáticamente</li></ol><p>En la mayoría de los casos usarás la opción 2 (<code>themeModifier</code>) o la opción 3 (mediante <code>ThemeData.extensions</code>).</p><h2>Tema derivado automáticamente</h2><p><code>MarkastTheme.fromTheme(ThemeData)</code> construye un tema completo a partir del <code>ThemeData</code> de tu app:</p><ul><li>Los estilos de encabezado provienen de <code>textTheme.headlineLarge/Medium/Small/titleLarge/Medium/Small</code></li><li>El estilo de cuerpo proviene de <code>textTheme.bodyMedium</code></li><li>El color de los enlaces proviene de <code>colorScheme.primary</code></li><li>El tema de resaltado es <code>monokai</code> (oscuro) o <code>xcode</code> (claro)</li></ul><p>Esto significa que markast se adapta automáticamente al tema Material de tu app.</p><h2>Tema global mediante ThemeData.extensions</h2><p>Registra el tema una vez en <code>MaterialApp</code> y todas las instancias de <code>Markast</code> lo recogerán:</p><pre><code class="lang-dart">MaterialApp(
+  theme: ThemeData.light().copyWith(
+    extensions: [
+      MarkastTheme.fromTheme(ThemeData.light()).copyWith(
+        blockSpacing: 24,
+        listBulletMarker: '▸',
+      ),
+    ],
+  ),
+)</code></pre><h2>Sobreescritura por instancia</h2><p>Para personalizaciones puntuales sin tocar el tema de la app:</p><pre><code class="lang-dart">final markast = Markast(
+  themeModifier: (base) =&gt; base.copyWith(
+    blockSpacing: 32,
+    codeBlockShowCopyButton: false,
+  ),
+);</code></pre><h2>Propiedades disponibles del tema</h2><p>Consulta la referencia completa en la página <a href="content/api/markast-theme.html">MarkastTheme</a>.</p></article>

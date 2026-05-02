@@ -1,0 +1,27 @@
+<article class="markast"><h1>Callout</h1><p>Un bloque resaltado para consejos, advertencias y otros mensajes destacados. Construido como un widget de markast.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "widget",
+  "widget": "callout",
+  "props": { "type": "tip", "title": "Consejo pro" },
+  "slots": {
+    "default": [
+      {
+        "type": "paragraph",
+        "children": [{ "type": "text", "value": "Usa themeModifier para ajustar los valores predeterminados." }]
+      }
+    ]
+  }
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>widget</code></td><td><code>"callout"</code></td><td>✓</td><td>Nombre del widget</td></tr><tr><td><code>props.type</code></td><td>string</td><td>✓</td><td>Estilo visual: <code>info</code>, <code>tip</code>, <code>warn</code>, <code>error</code>, <code>success</code></td></tr><tr><td><code>props.title</code></td><td>string</td><td>—</td><td>Texto de encabezado en negrita</td></tr><tr><td><code>slots.default</code></td><td>nodos de bloque</td><td>—</td><td>Contenido del cuerpo</td></tr></tbody></table><h2>Tipos de callout</h2><table><thead><tr><th>Tipo</th><th>Color</th><th>Usar para</th></tr></thead><tbody><tr><td><code>info</code></td><td>Azul</td><td>Información neutral</td></tr><tr><td><code>tip</code></td><td>Verde</td><td>Sugerencias útiles</td></tr><tr><td><code>warn</code></td><td>Ámbar</td><td>Precauciones y advertencias</td></tr><tr><td><code>error</code></td><td>Rojo</td><td>Errores y cambios incompatibles</td></tr><tr><td><code>success</code></td><td>Verde</td><td>Resultados positivos</td></tr></tbody></table><h2>Propiedades del tema en Flutter</h2><p>Cada tipo tiene su propio registro de estilo (<code>MarkastCalloutStyle</code>):</p><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>calloutInfo</code></td><td><code>MarkastCalloutStyle</code></td><td>Icono, color del icono, estilo del título, decoración para <code>info</code></td></tr><tr><td><code>calloutWarn</code></td><td><code>MarkastCalloutStyle</code></td><td>Lo mismo para <code>warn</code></td></tr><tr><td><code>calloutError</code></td><td><code>MarkastCalloutStyle</code></td><td>Lo mismo para <code>error</code></td></tr><tr><td><code>calloutSuccess</code></td><td><code>MarkastCalloutStyle</code></td><td>Lo mismo para <code>success</code></td></tr><tr><td><code>calloutPadding</code></td><td><code>EdgeInsets</code></td><td>Padding interno (todos los tipos)</td></tr><tr><td><code>calloutTitleSpacing</code></td><td><code>double</code></td><td>Espacio entre el título y el cuerpo</td></tr><tr><td><code>calloutTitleIconSize</code></td><td><code>double</code></td><td>Tamaño del icono en la fila del título</td></tr></tbody></table><h2>Personalizar un tipo de callout</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  calloutWarn: (
+    icon: Icons.warning_amber_rounded,
+    iconColor: Colors.orange,
+    titleStyle: const TextStyle(
+      fontWeight: FontWeight.w700,
+      color: Colors.orange,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.orange.withOpacity(.08),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Colors.orange.withOpacity(.3)),
+    ),
+  ),
+)</code></pre></article>

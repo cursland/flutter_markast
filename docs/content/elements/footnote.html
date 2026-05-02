@@ -1,0 +1,29 @@
+<article class="markast"><h1>Nota al Pie</h1><p>Las notas al pie son un sistema de dos partes: una referencia inline (<code>footnote_ref</code>) en el texto y una definición de bloque (<code>footnote_def</code>) al final del documento.</p><h2>Definición de nota — Estructura AST</h2><pre><code class="lang-json">{
+  "type": "footnote_def",
+  "label": "1",
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [{ "type": "text", "value": "Este es el texto de la nota al pie." }]
+    }
+  ]
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"footnote_def"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>label</code></td><td>string</td><td>✓</td><td>Identificador único — debe coincidir con el label de <code>footnote_ref</code></td></tr><tr><td><code>children</code></td><td>nodos de bloque</td><td>✓</td><td>Contenido de la nota al pie</td></tr></tbody></table><h2>Referencia de nota — Estructura AST</h2><pre><code class="lang-json">{ "type": "footnote_ref", "label": "1" }</code></pre><p>Se coloca inline dentro de un párrafo. Renderiza como un número superíndice que enlaza a la definición.</p><h2>Ejemplo completo</h2><pre><code class="lang-json">{
+  "type": "document",
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        { "type": "text", "value": "Flutter es genial" },
+        { "type": "footnote_ref", "label": "1" },
+        { "type": "text", "value": "." }
+      ]
+    },
+    {
+      "type": "footnote_def",
+      "label": "1",
+      "children": [
+        { "type": "paragraph", "children": [{ "type": "text", "value": "Según sus creadores." }] }
+      ]
+    }
+  ]
+}</code></pre><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>footnoteDefLabelTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de la etiqueta en la definición</td></tr><tr><td><code>footnoteDefSpacing</code></td><td><code>double</code></td><td>Espacio entre definiciones de notas</td></tr><tr><td><code>footnoteRefTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo de la referencia superíndice</td></tr></tbody></table></article>

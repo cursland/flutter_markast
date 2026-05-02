@@ -1,0 +1,16 @@
+<article class="markast"><h1>Video</h1><p>Un reproductor de video a nivel de bloque con imagen de portada e control de relación de aspecto opcionales.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "video",
+  "src": "https://example.com/clip.mp4",
+  "poster": "https://example.com/thumb.jpg",
+  "caption": "Demo de la app"
+}</code></pre><table><thead><tr><th>Campo</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>"video"</code></td><td>✓</td><td>Tipo de nodo</td></tr><tr><td><code>src</code></td><td>string</td><td>✓</td><td>URL o ruta de asset del video</td></tr><tr><td><code>poster</code></td><td>string</td><td>—</td><td>Imagen de portada mostrada antes de la reproducción</td></tr><tr><td><code>caption</code></td><td>string</td><td>—</td><td>Texto mostrado bajo el reproductor</td></tr></tbody></table><h2>Comportamiento por defecto</h2><p>Por defecto markast renderiza un marco de placeholder con la imagen de portada y un botón de play. La reproducción real se delega al callback <code>videoBuilder</code> — el predeterminado no reproduce automáticamente.</p><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>videoFrameDecoration</code></td><td><code>BoxDecoration</code></td><td>Borde y fondo del contenedor exterior</td></tr><tr><td><code>videoSrcTextStyle</code></td><td><code>TextStyle</code></td><td>Estilo del texto del pie de foto</td></tr><tr><td><code>videoSrcPadding</code></td><td><code>EdgeInsets</code></td><td>Padding alrededor del pie de foto</td></tr><tr><td><code>videoPlayButtonDecoration</code></td><td><code>BoxDecoration</code></td><td>Fondo del círculo del botón de play</td></tr><tr><td><code>videoPlayButtonSize</code></td><td><code>double</code></td><td>Tamaño del contenedor del botón de play (por defecto <code>56</code>)</td></tr><tr><td><code>videoPlayIconColor</code></td><td><code>Color</code></td><td>Color del icono de play (por defecto blanco)</td></tr><tr><td><code>videoPlayIconSize</code></td><td><code>double</code></td><td>Tamaño del icono de play (por defecto <code>32</code>)</td></tr><tr><td><code>videoAspectRatio</code></td><td><code>double</code></td><td>Relación de aspecto del reproductor (por defecto <code>16/9</code>)</td></tr></tbody></table><h2>Reproductor de video personalizado</h2><p>Reemplaza el contenido del reproductor con tu propio widget (p.ej. <code>video_player</code>, <code>chewie</code>, <code>youtube_player_flutter</code>):</p><pre><code class="lang-dart">markast.buildDocument(
+  context,
+  ast,
+  videoBuilder: (src, {poster, aspectRatio = 16 / 9}) {
+    return VideoPlayerWidget(
+      url: src,
+      thumbnail: poster,
+      aspectRatio: aspectRatio,
+    );
+  },
+)</code></pre><p>El <code>videoBuilder</code> recibe solo el área de contenido. La decoración del marco exterior y el pie de foto siguen controlados por <code>MarkastTheme</code>.</p></article>

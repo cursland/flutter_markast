@@ -1,0 +1,6 @@
+<article class="markast"><h1>Divisor</h1><p>Una regla horizontal que separa secciones.</p><h2>Estructura AST</h2><pre><code class="lang-json">{
+  "type": "divider"
+}</code></pre><p>Sin hijos ni campos adicionales.</p><h2>Propiedades del tema en Flutter</h2><table><thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody><tr><td><code>dividerColor</code></td><td><code>Color</code></td><td>Color de la línea</td></tr><tr><td><code>dividerThickness</code></td><td><code>double</code></td><td>Grosor de la línea en píxeles lógicos (por defecto <code>1</code>)</td></tr></tbody></table><h2>Personalización</h2><pre><code class="lang-dart">themeModifier: (base) =&gt; base.copyWith(
+  dividerColor: Colors.purple.withOpacity(.3),
+  dividerThickness: 2,
+)</code></pre></article>

@@ -1,0 +1,64 @@
+{
+  "title": "markast",
+  "categories": [
+    {
+      "title": "Primeros Pasos",
+      "articles": [
+        { "title": "Introducción",  "path": "content/introduction.html" },
+        { "title": "Instalación",   "path": "content/installation.html" },
+        { "title": "Inicio Rápido", "path": "content/quick-start.html" }
+      ]
+    },
+    {
+      "title": "API de Flutter",
+      "articles": [
+        { "title": "Clase Markast",           "path": "content/api/markast-class.html" },
+        { "title": "MarkastTheme",            "path": "content/api/markast-theme.html" },
+        { "title": "Renderers Personalizados","path": "content/api/custom-renderers.html" }
+      ]
+    },
+    {
+      "title": "Elementos de Bloque",
+      "articles": [
+        { "title": "Encabezado",      "path": "content/elements/heading.html" },
+        { "title": "Párrafo",         "path": "content/elements/paragraph.html" },
+        { "title": "Cita en Bloque",  "path": "content/elements/blockquote.html" },
+        { "title": "Bloque de Código","path": "content/elements/code-block.html" },
+        { "title": "Imagen",          "path": "content/elements/image.html" },
+        { "title": "Video",           "path": "content/elements/video.html" },
+        { "title": "Lista",           "path": "content/elements/list.html" },
+        { "title": "Tabla",           "path": "content/elements/table.html" },
+        { "title": "Divisor",         "path": "content/elements/divider.html" },
+        { "title": "Bloque HTML",     "path": "content/elements/html-block.html" },
+        { "title": "Nota al Pie",     "path": "content/elements/footnote.html" }
+      ]
+    },
+    {
+      "title": "Elementos en Línea",
+      "articles": [
+        { "title": "Negrita y Cursiva",         "path": "content/elements/bold-italic.html" },
+        { "title": "Código en Línea",           "path": "content/elements/code-inline.html" },
+        { "title": "Enlace",                    "path": "content/elements/link.html" },
+        { "title": "Imagen en Línea",           "path": "content/elements/inline-image.html" },
+        { "title": "Tachado y Subrayado",       "path": "content/elements/text-decorations.html" },
+        { "title": "Saltos de Línea",           "path": "content/elements/line-breaks.html" },
+        { "title": "Referencia a Nota al Pie",  "path": "content/elements/footnote-ref.html" }
+      ]
+    },
+    {
+      "title": "Widgets",
+      "articles": [
+        { "title": "Callout", "path": "content/widgets/callout.html" }
+      ]
+    },
+    {
+      "title": "Personalización",
+      "articles": [
+        { "title": "Visión General del Tema", "path": "content/theming/overview.html" },
+        { "title": "themeModifier",           "path": "content/theming/theme-modifier.html" },
+        { "title": "Modo Oscuro",             "path": "content/theming/dark-mode.html" },
+        { "title": "Resaltado de Sintaxis",   "path": "content/theming/syntax-highlighting.html" }
+      ]
+    }
+  ]
+}
