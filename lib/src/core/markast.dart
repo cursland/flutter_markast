@@ -36,6 +36,17 @@ import 'render_context.dart';
 import 'widget_node_renderer.dart';
 import 'widget_registry.dart';
 
+/// Callback that receives the auto-derived [MarkastTheme] and returns a
+/// modified copy. Use with [Markast.new] or [Markast.empty] to tweak defaults
+/// without needing a [BuildContext] at construction time:
+///
+/// ```dart
+/// final markast = Markast(
+///   theme: (base) => base.copyWith(blockSpacing: 24),
+/// );
+/// ```
+typedef MarkastThemeModifier = MarkastTheme Function(MarkastTheme base);
+
 /// The Flutter renderer entry point.
 ///
 /// `Markast()` returns an instance pre-loaded with every official block,
@@ -52,18 +63,31 @@ import 'widget_registry.dart';
 /// }
 /// ```
 ///
+/// To tweak the default theme pass a [MarkastThemeModifier]:
+/// ```dart
+/// final markast = Markast(
+///   theme: (base) => base.copyWith(blockSpacing: 24, listBulletMarker: '▸'),
+/// );
+/// ```
+///
+/// Pass a full [MarkastTheme] instead to replace the theme entirely.
+///
 /// `Markast.empty()` starts with no renderers — use it for full takeovers
 /// where you want to supply every renderer yourself.
 class Markast {
-  Markast._({MarkastTheme? theme})
+  Markast._({MarkastTheme? explicitTheme, MarkastThemeModifier? themeModifier})
       : nodes = NodeRegistry(),
         widgets = WidgetRegistry(),
-        _explicitTheme = theme;
+        _explicitTheme = explicitTheme,
+        _themeModifier = themeModifier;
 
   /// Creates a [Markast] instance pre-loaded with all official renderers.
-  /// Pass [theme] to override the resolved [MarkastTheme] for every render.
-  factory Markast({MarkastTheme? theme}) {
-    final m = Markast._(theme: theme);
+  ///
+  /// - [theme]: full [MarkastTheme] that replaces the auto-derived theme entirely.
+  /// - [themeModifier]: callback `(base) => base.copyWith(...)` to tweak the
+  ///   auto-derived theme without replacing it. Ignored when [theme] is set.
+  factory Markast({MarkastTheme? theme, MarkastThemeModifier? themeModifier}) {
+    final m = Markast._(explicitTheme: theme, themeModifier: themeModifier);
     m.nodes.registerAllBlocks(_officialBlocks);
     m.nodes.registerAllInlines(_officialInlines);
     m.widgets.registerAll(_officialWidgets);
@@ -71,7 +95,8 @@ class Markast {
   }
 
   /// Creates a [Markast] instance with no renderers registered.
-  factory Markast.empty({MarkastTheme? theme}) => Markast._(theme: theme);
+  factory Markast.empty({MarkastTheme? theme, MarkastThemeModifier? themeModifier}) =>
+      Markast._(explicitTheme: theme, themeModifier: themeModifier);
 
   /// Block and inline node renderer registry.
   final NodeRegistry nodes;
@@ -80,6 +105,7 @@ class Markast {
   final WidgetRegistry widgets;
 
   final MarkastTheme? _explicitTheme;
+  final MarkastThemeModifier? _themeModifier;
 
   /// Register a custom block renderer, replacing any existing one for the same type.
   void registerBlock(BlockRenderer r) => nodes.registerBlock(r);
@@ -123,14 +149,16 @@ class Markast {
   }
 
   /// Resolves the [MarkastTheme] in priority order:
-  /// 1. Theme passed to [Markast()] constructor.
-  /// 2. `Theme.of(context).extension<MarkastTheme>()`.
-  /// 3. `MarkastTheme.fromTheme(Theme.of(context))` as a sensible fallback.
+  /// 1. Explicit [MarkastTheme] passed to [Markast()].
+  /// 2. [MarkastThemeModifier] applied to the base theme (from extension or [MarkastTheme.fromTheme]).
+  /// 3. `Theme.of(context).extension<MarkastTheme>()`.
+  /// 4. `MarkastTheme.fromTheme(Theme.of(context))` as a sensible fallback.
   MarkastTheme resolveTheme(BuildContext context) {
     if (_explicitTheme != null) return _explicitTheme;
     final flutterTheme = Theme.of(context);
-    return flutterTheme.extension<MarkastTheme>() ??
+    final base = flutterTheme.extension<MarkastTheme>() ??
         MarkastTheme.fromTheme(flutterTheme);
+    return _themeModifier != null ? _themeModifier(base) : base;
   }
 
   // ── Block dispatch ────────────────────────────────────────────────────────
