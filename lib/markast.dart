@@ -36,6 +36,8 @@ export 'src/theme/markast_theme.dart';
 // ── Syntax highlighting ───────────────────────────────────────────────────────
 export 'src/highlight/markast_highlight_theme.dart';
 export 'src/highlight/markast_highlight_catalog.dart';
+export 'src/highlight/grammars/_shared.dart' show MarkastScopes;
+export 'src/highlight/grammars/markast_grammars.dart';
 
 // ── Official renderers (exported so consumers can subclass or compose) ────────
 export 'src/nodes/blocks/blockquote_node.dart';
