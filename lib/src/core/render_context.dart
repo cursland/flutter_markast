@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../theme/markast_theme.dart';
 import 'markast.dart';
+import 'markast_controller.dart';
 
 // ── Callback typedefs ────────────────────────────────────────────────────────
 
@@ -49,6 +50,7 @@ class RenderContext {
     required this.context,
     required this.theme,
     required this.markast,
+    this.controller,
     this.onLinkTap,
     this.imageBuilder,
     this.videoBuilder,
@@ -60,6 +62,12 @@ class RenderContext {
   final BuildContext context;
   final MarkastTheme theme;
   final Markast markast;
+
+  /// Optional controller for anchor-based in-document navigation.
+  ///
+  /// When provided, [HeadingNodeRenderer] registers each heading that carries
+  /// an `id` field, enabling [MarkastController.scrollTo] to locate it later.
+  final MarkastController? controller;
 
   /// Called when a link is tapped. [url] is the `href`; [title] is the
   /// optional Markdown title attribute. When null, links render as styled
@@ -91,6 +99,9 @@ class RenderContext {
       bodyStyleOverride ?? theme.bodyTextStyle;
 
   /// Returns a copy with any of the given fields overridden.
+  ///
+  /// [controller] and [scratch] are always propagated from the original
+  /// context — they are shared across the entire render tree.
   RenderContext copyWith({
     BuildContext? context,
     MarkastTheme? theme,
@@ -101,14 +112,15 @@ class RenderContext {
     TextStyle? bodyStyleOverride,
   }) =>
       RenderContext(
-        context: context ?? this.context,
-        theme: theme ?? this.theme,
-        markast: markast,
-        onLinkTap: onLinkTap ?? this.onLinkTap,
-        imageBuilder: imageBuilder ?? this.imageBuilder,
-        videoBuilder: videoBuilder ?? this.videoBuilder,
-        onCodeCopy: onCodeCopy ?? this.onCodeCopy,
+        context:           context ?? this.context,
+        theme:             theme ?? this.theme,
+        markast:           markast,
+        controller:        controller,
+        onLinkTap:         onLinkTap ?? this.onLinkTap,
+        imageBuilder:      imageBuilder ?? this.imageBuilder,
+        videoBuilder:      videoBuilder ?? this.videoBuilder,
+        onCodeCopy:        onCodeCopy ?? this.onCodeCopy,
         bodyStyleOverride: bodyStyleOverride ?? this.bodyStyleOverride,
-        scratch: scratch,
+        scratch:           scratch,
       );
 }

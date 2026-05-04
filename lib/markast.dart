@@ -20,6 +20,8 @@ export 'src/ast/node_types.dart';
 
 // ── Core ──────────────────────────────────────────────────────────────────────
 export 'src/core/markast.dart';
+export 'src/core/markast_controller.dart';
+export 'src/core/markast_link.dart';
 export 'src/core/render_context.dart'
     show RenderContext, MarkastImageBuilder, MarkastVideoBuilder;
 export 'src/core/block_renderer.dart';
