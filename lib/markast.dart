@@ -67,6 +67,7 @@ export 'src/nodes/inline/text_inline.dart';
 export 'src/nodes/inline/underline_inline.dart';
 
 export 'src/widgets/callout_widget.dart';
+export 'src/widgets/markast_code_block.dart';
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 export 'src/util/timed_network_image.dart';
