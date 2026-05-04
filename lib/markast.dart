@@ -34,10 +34,30 @@ export 'src/core/widget_registry.dart';
 export 'src/theme/markast_theme.dart';
 
 // ── Syntax highlighting ───────────────────────────────────────────────────────
+//
+// Markast ships two interchangeable backends. They share one interface
+// (MarkastHighlighter) so MarkastTheme.highlightTheme accepts either.
+//
+// Backend A — re_highlight + Markast's enhanced grammars (default):
+//   final ht = MarkastHighlightTheme(theme: MarkastCodeThemes.atomOneDark);
+//
+// Backend B — TextMate / VSCode-quality (opt-in, async setup):
+//   final theme = await MarkastTextMateThemes.darkPlus();
+//   final ht    = await MarkastTextMateHighlight.create(theme: theme);
+//
+// Both expose a `highlight(code, language, baseStyle) -> TextSpan?` method
+// usable directly from any widget — see also [MarkastCodeBlock].
+//
+export 'src/highlight/markast_highlighter.dart';
 export 'src/highlight/markast_highlight_theme.dart';
 export 'src/highlight/markast_highlight_catalog.dart';
 export 'src/highlight/grammars/_shared.dart' show MarkastScopes;
 export 'src/highlight/grammars/markast_grammars.dart';
+export 'src/highlight/textmate/markast_textmate_highlight.dart';
+export 'src/highlight/textmate/markast_textmate_catalog.dart';
+// Re-export HighlighterTheme so consumers don't need a direct
+// `package:syntax_highlight` import.
+export 'package:syntax_highlight/syntax_highlight.dart' show HighlighterTheme;
 
 // ── Official renderers (exported so consumers can subclass or compose) ────────
 export 'src/nodes/blocks/blockquote_node.dart';

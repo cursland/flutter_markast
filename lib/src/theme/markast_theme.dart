@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../highlight/markast_highlight_catalog.dart';
 import '../highlight/markast_highlight_theme.dart';
+import '../highlight/markast_highlighter.dart';
 
 /// Visual settings for one callout level. Just a Dart record — no custom
 /// class. Build inline:
@@ -301,7 +302,16 @@ class MarkastTheme extends ThemeExtension<MarkastTheme> {
   final double calloutTitleIconSize;
 
   // ── Syntax highlighting ────────────────────────────────────────────
-  final MarkastHighlightTheme? highlightTheme;
+  /// The highlight engine used for fenced code blocks. Accepts either of
+  /// Markast's two backends:
+  ///
+  /// * [MarkastHighlightTheme] — sync, broad language coverage, custom
+  ///   themes from [MarkastCodeThemes].
+  /// * `MarkastTextMateHighlight` — async setup, VSCode-grade output for
+  ///   15 languages, official VSCode themes from `MarkastTextMateThemes`.
+  ///
+  /// Both implement [MarkastHighlighter]. Pick whichever fits your project.
+  final MarkastHighlighter? highlightTheme;
 
   // ── Helpers ───────────────────────────────────────────────────────
 
@@ -666,7 +676,7 @@ class MarkastTheme extends ThemeExtension<MarkastTheme> {
     EdgeInsets? calloutPadding,
     double? calloutTitleSpacing,
     double? calloutTitleIconSize,
-    MarkastHighlightTheme? highlightTheme,
+    MarkastHighlighter? highlightTheme,
   }) {
     return MarkastTheme(
       maxContentWidth: maxContentWidth ?? this.maxContentWidth,

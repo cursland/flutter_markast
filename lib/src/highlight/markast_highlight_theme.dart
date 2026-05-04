@@ -3,6 +3,7 @@ import 'package:re_highlight/re_highlight.dart';
 import 'package:re_highlight/languages/all.dart';
 
 import 'grammars/markast_grammars.dart';
+import 'markast_highlighter.dart';
 
 /// Wraps a re_highlight theme (`Map<String, TextStyle>`) and exposes a single
 /// [highlight] method that returns a [TextSpan] for both inline code and
@@ -33,7 +34,7 @@ import 'grammars/markast_grammars.dart';
 /// final ht = MarkastHighlightTheme(theme: someReHighlightTheme);
 /// final span = ht.highlight(code, 'dart', baseStyle);
 /// ```
-class MarkastHighlightTheme {
+class MarkastHighlightTheme extends MarkastHighlighter {
   const MarkastHighlightTheme({required Map<String, TextStyle> theme})
       : _theme = theme;
 
@@ -52,6 +53,11 @@ class MarkastHighlightTheme {
   }();
 
   /// Common shorthand aliases → canonical language names.
+  ///
+  /// This map handles short names that don't appear as `aliases` inside any
+  /// grammar's `Mode`. The engine itself already resolves aliases declared
+  /// inside grammars (e.g. `dart` → `Dart`); this map is for additional
+  /// shortcuts users frequently type in fenced code blocks.
   static const Map<String, String> _aliases = {
     'js':         'javascript',
     'jsx':        'javascript',
@@ -103,6 +109,7 @@ class MarkastHighlightTheme {
   ///
   /// Returns null if the language is unknown or parsing fails; callers should
   /// fall back to a plain [TextSpan].
+  @override
   TextSpan? highlight(String code, String language, TextStyle baseStyle) {
     final lang = _aliases[language.toLowerCase()] ?? language.toLowerCase();
     try {
@@ -113,6 +120,12 @@ class MarkastHighlightTheme {
     } catch (_) {
       return null;
     }
+  }
+
+  @override
+  bool supports(String language) {
+    final lang = _aliases[language.toLowerCase()] ?? language.toLowerCase();
+    return _engine.getLanguage(lang) != null;
   }
 
   /// Names of languages that use Markast's enhanced grammar (as opposed to
