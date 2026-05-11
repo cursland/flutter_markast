@@ -6,7 +6,7 @@ Agrega `markast` a tu `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  markast: ^0.1.0
+  markast: ^0.0.3
 ```
 
 Luego ejecuta:
@@ -15,7 +15,7 @@ Luego ejecuta:
 flutter pub get
 ```
 
-Desde 0.1.0 el paquete incluye un **parser Markdown → AST nativo en Dart** además del renderer. No necesitas Python en producción si el contenido se parsea en la app.
+Desde 0.0.2 el paquete incluye un **parser Markdown → AST nativo en Dart** además del renderer; 0.0.3 añade el camino inverso (`MarkdownRenderer`) para roundtrips de edición. No necesitas Python en producción si el contenido se parsea en la app.
 
 ### Verificar la instalación
 

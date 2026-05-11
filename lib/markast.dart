@@ -68,6 +68,9 @@ export 'src/config.dart' show ParserConfig, defaultConfig;
 export 'src/document.dart' show Document;
 export 'src/parser_api.dart' show Parser, parse, ConfigurationError;
 
+// ── AST → Markdown renderer ───────────────────────────────────────────────────
+export 'src/render/markdown_renderer.dart' show MarkdownRenderer, formatProps;
+
 // ── Rules / diagnostics ───────────────────────────────────────────────────────
 export 'src/rules/codes.dart';
 export 'src/rules/rule.dart' show Diagnostic, Rule, Severity;

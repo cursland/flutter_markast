@@ -4,14 +4,15 @@
 
 Tres formas equivalentes de obtener el JSON:
 
-### a) Parsear Markdown en Dart (nuevo en 0.1.0)
+### a) Parsear Markdown en Dart (desde 0.0.2)
 
 ```dart
 import 'package:markast/markast.dart';
 
 final doc = parse('# ¡Hola!\n\nEsto es **markast**.');
-final ast = doc.toMap();   // listo para buildDocument
+final ast = doc.toMap();         // listo para buildDocument
 print(doc.toJson(indent: 2));
+print(doc.toMarkdown());          // roundtrip: AST → Markdown canónico
 ```
 
 Con opciones avanzadas:
@@ -23,6 +24,8 @@ final parser = Parser(
 );
 final doc = parser.parse(markdownSource);
 ```
+
+> `Document.toMarkdown()` cierra el roundtrip — útil cuando el AST es el formato de almacenamiento canónico (por ejemplo, dentro de un `.zip`) y necesitas mostrarlo en un editor de texto para que el usuario lo modifique antes de re-parsearlo.
 
 ### b) Generar el JSON en Python (build server / CMS)
 

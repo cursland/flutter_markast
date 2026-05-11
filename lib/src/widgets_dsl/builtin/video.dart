@@ -35,4 +35,28 @@ class VideoWidget extends BaseWidget {
         'height': WidgetParam(description: 'CSS height.'),
         'caption': WidgetParam(description: 'Caption text shown below.'),
       };
+
+  @override
+  String toMarkdown(
+    Map<String, dynamic> node,
+    String Function(List<Map<String, dynamic>>) renderChildren,
+  ) {
+    final props = (node['props'] as Map<String, dynamic>?) ?? const {};
+    final tokens = <String>['src="${props['src'] ?? ''}"'];
+
+    for (final key in const ['poster', 'width', 'height', 'caption']) {
+      final v = props[key];
+      if (v != null && '$v'.isNotEmpty) tokens.add('$key="$v"');
+    }
+    for (final key in const ['controls', 'autoplay', 'loop', 'muted']) {
+      final v = props[key];
+      if (v == true) {
+        tokens.add(key);
+      } else if (v == false && props.containsKey(key)) {
+        tokens.add('$key=false');
+      }
+    }
+
+    return ':::video ${tokens.join(' ')}\n:::';
+  }
 }

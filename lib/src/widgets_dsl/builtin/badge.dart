@@ -23,4 +23,13 @@ class BadgeWidget extends BaseWidget {
           description: 'Accent color.',
         ),
       };
+
+  @override
+  String toMarkdown(
+    Map<String, dynamic> node,
+    String Function(List<Map<String, dynamic>>) renderChildren,
+  ) {
+    final p = (node['props'] as Map<String, dynamic>?) ?? const {};
+    return ':::badge label="${p['label'] ?? ''}" color=${p['color'] ?? 'gray'}\n:::';
+  }
 }

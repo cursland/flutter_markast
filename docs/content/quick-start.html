@@ -1,12 +1,13 @@
-<article class="markast"><h1>Inicio Rápido</h1><h2>1. Crear un AST</h2><p>Tres formas equivalentes de obtener el JSON:</p><h3>a) Parsear Markdown en Dart (nuevo en 0.1.0)</h3><pre><code class="lang-dart">import 'package:markast/markast.dart';
+<article class="markast"><h1>Inicio Rápido</h1><h2>1. Crear un AST</h2><p>Tres formas equivalentes de obtener el JSON:</p><h3>a) Parsear Markdown en Dart (desde 0.0.2)</h3><pre><code class="lang-dart">import 'package:markast/markast.dart';
 
 final doc = parse('# ¡Hola!\n\nEsto es **markast**.');
-final ast = doc.toMap();   // listo para buildDocument
-print(doc.toJson(indent: 2));</code></pre><p>Con opciones avanzadas:</p><pre><code class="lang-dart">final parser = Parser(
+final ast = doc.toMap();         // listo para buildDocument
+print(doc.toJson(indent: 2));
+print(doc.toMarkdown());          // roundtrip: AST → Markdown canónico</code></pre><p>Con opciones avanzadas:</p><pre><code class="lang-dart">final parser = Parser(
   transforms: ['normalize', 'slugify', 'toc'],
   widgets: [() =&gt; MyCalloutWidget()],
 );
-final doc = parser.parse(markdownSource);</code></pre><h3>b) Generar el JSON en Python (build server / CMS)</h3><pre><code class="lang-python">from markast import parse
+final doc = parser.parse(markdownSource);</code></pre><blockquote><p><code>Document.toMarkdown()</code> cierra el roundtrip — útil cuando el AST es el formato de almacenamiento canónico (por ejemplo, dentro de un <code>.zip</code>) y necesitas mostrarlo en un editor de texto para que el usuario lo modifique antes de re-parsearlo.</p></blockquote><h3>b) Generar el JSON en Python (build server / CMS)</h3><pre><code class="lang-python">from markast import parse
 
 doc = parse("# ¡Hola!\n\nEsto es **markast**.")
 print(doc.to_json())</code></pre><h3>c) Cargar JSON desde un asset</h3><p>Útil cuando el contenido viene pre-procesado en el bundle de la app — ver paso 3.</p><h2>2. Renderizar en Flutter</h2><pre><code class="lang-dart">import 'package:markast/markast.dart';

@@ -27,7 +27,7 @@ En lugar de pasar cadenas de HTML o Markdown sin procesar a un renderer, markast
 }
 ```
 
-Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia, y desde la versión 0.1.0 el paquete Flutter incluye su propio parser Dart para construir el AST en la app sin necesidad de un servidor.
+Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia, y desde la versión 0.0.2 el paquete Flutter incluye su propio parser Dart para construir el AST en la app sin necesidad de un servidor. La versión 0.0.3 añade el camino inverso (AST → Markdown) para cerrar el roundtrip.
 
 ## Paquetes
 

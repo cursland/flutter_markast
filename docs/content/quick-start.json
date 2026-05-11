@@ -38,14 +38,14 @@
       "children": [
         {
           "type": "text",
-          "value": "a) Parsear Markdown en Dart (nuevo en 0.1.0)"
+          "value": "a) Parsear Markdown en Dart (desde 0.0.2)"
         }
       ]
     },
     {
       "type": "code_block",
       "language": "dart",
-      "value": "import 'package:markast/markast.dart';\n\nfinal doc = parse('# ¡Hola!\\n\\nEsto es **markast**.');\nfinal ast = doc.toMap();   // listo para buildDocument\nprint(doc.toJson(indent: 2));"
+      "value": "import 'package:markast/markast.dart';\n\nfinal doc = parse('# ¡Hola!\\n\\nEsto es **markast**.');\nfinal ast = doc.toMap();         // listo para buildDocument\nprint(doc.toJson(indent: 2));\nprint(doc.toMarkdown());          // roundtrip: AST → Markdown canónico"
     },
     {
       "type": "paragraph",
@@ -60,6 +60,32 @@
       "type": "code_block",
       "language": "dart",
       "value": "final parser = Parser(\n  transforms: ['normalize', 'slugify', 'toc'],\n  widgets: [() => MyCalloutWidget()],\n);\nfinal doc = parser.parse(markdownSource);"
+    },
+    {
+      "type": "blockquote",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "code_inline",
+              "value": "Document.toMarkdown()"
+            },
+            {
+              "type": "text",
+              "value": " cierra el roundtrip — útil cuando el AST es el formato de almacenamiento canónico (por ejemplo, dentro de un "
+            },
+            {
+              "type": "code_inline",
+              "value": ".zip"
+            },
+            {
+              "type": "text",
+              "value": ") y necesitas mostrarlo en un editor de texto para que el usuario lo modifique antes de re-parsearlo."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "heading",

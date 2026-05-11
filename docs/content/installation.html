@@ -1,5 +1,5 @@
 <article class="markast"><h1>Instalación</h1><h2>Paquete Flutter</h2><p>Agrega <code>markast</code> a tu <code>pubspec.yaml</code>:</p><pre><code class="lang-yaml">dependencies:
-  markast: ^0.1.0</code></pre><p>Luego ejecuta:</p><pre><code class="lang-bash">flutter pub get</code></pre><p>Desde 0.1.0 el paquete incluye un <strong>parser Markdown → AST nativo en Dart</strong> además del renderer. No necesitas Python en producción si el contenido se parsea en la app.</p><h3>Verificar la instalación</h3><pre><code class="lang-dart">import 'package:markast/markast.dart';
+  markast: ^0.0.3</code></pre><p>Luego ejecuta:</p><pre><code class="lang-bash">flutter pub get</code></pre><p>Desde 0.0.2 el paquete incluye un <strong>parser Markdown → AST nativo en Dart</strong> además del renderer; 0.0.3 añade el camino inverso (<code>MarkdownRenderer</code>) para roundtrips de edición. No necesitas Python en producción si el contenido se parsea en la app.</p><h3>Verificar la instalación</h3><pre><code class="lang-dart">import 'package:markast/markast.dart';
 
 void main() {
   final doc = parse('# Hola, **markast**!');

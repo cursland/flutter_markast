@@ -8,7 +8,7 @@
 
 Parse Markdown into a typed JSON AST and render it as native Flutter widgets — no HTML, no WebView, fully themeable, extensible via custom renderers. The parsing and rendering pipelines are independent: build the AST in Dart, in Python, or anywhere else.
 
-[![Version](https://img.shields.io/badge/version-0.1.0-6d52ff)](https://www.cursland.com)
+[![Version](https://img.shields.io/badge/version-0.0.3-6d52ff)](https://www.cursland.com)
 [![Flutter](https://img.shields.io/badge/flutter->=1.17.0-6d52ff)](pubspec.yaml)
 [![License](https://img.shields.io/badge/license-MIT-6d52ff)](LICENSE)
 
@@ -61,6 +61,7 @@ final doc = parse('# Heading\n\nWith **bold** text and [a link](https://x.dev).'
 
 doc.toMap();                  // Map<String, dynamic> ready for buildDocument
 doc.toJson(indent: 2);        // JSON string
+doc.toMarkdown();             // roundtrip: AST → canonical Markdown
 doc.warnings;                 // diagnostics — W001…W009 codes
 doc.find(NodeType.heading);   // walk the tree
 ```

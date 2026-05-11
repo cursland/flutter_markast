@@ -51,7 +51,7 @@
     {
       "type": "code_block",
       "language": "yaml",
-      "value": "dependencies:\n  markast: ^0.1.0"
+      "value": "dependencies:\n  markast: ^0.0.3"
     },
     {
       "type": "paragraph",
@@ -72,7 +72,7 @@
       "children": [
         {
           "type": "text",
-          "value": "Desde 0.1.0 el paquete incluye un "
+          "value": "Desde 0.0.2 el paquete incluye un "
         },
         {
           "type": "bold",
@@ -85,7 +85,15 @@
         },
         {
           "type": "text",
-          "value": " además del renderer. No necesitas Python en producción si el contenido se parsea en la app."
+          "value": " además del renderer; 0.0.3 añade el camino inverso ("
+        },
+        {
+          "type": "code_inline",
+          "value": "MarkdownRenderer"
+        },
+        {
+          "type": "text",
+          "value": ") para roundtrips de edición. No necesitas Python en producción si el contenido se parsea en la app."
         }
       ]
     },

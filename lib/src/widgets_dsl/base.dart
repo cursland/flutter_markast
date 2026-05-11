@@ -233,12 +233,81 @@ abstract class BaseWidget {
   ) =>
       const [];
 
+  /// Roundtrip back to Markdown. The default produces the canonical form:
+  ///
+  ///     :::name k1="v1" k2=v2
+  ///
+  ///     <default slot rendered>
+  ///
+  ///     # slot-name
+  ///     <slot rendered>
+  ///
+  ///     :::
+  ///
+  /// Override only when the canonical syntax differs (see e.g. `BadgeWidget`,
+  /// `VideoWidget`, `CodeGroupWidget`).
+  String toMarkdown(
+    Map<String, dynamic> node,
+    String Function(List<Map<String, dynamic>>) renderChildren,
+  ) {
+    final props = (node['props'] as Map<String, dynamic>?) ?? const {};
+    final slotsData = (node['slots'] as Map<String, dynamic>?) ?? const {};
+
+    final propStr = _formatPropsForMarkdown(props);
+    final header = ':::$name${propStr.isEmpty ? '' : ' $propStr'}';
+    final parts = <String>[header, ''];
+
+    final defaultSlot = (slotsData['default'] as List?)
+            ?.cast<Map<String, dynamic>>() ??
+        const <Map<String, dynamic>>[];
+    if (defaultSlot.isNotEmpty) {
+      parts.addAll([renderChildren(defaultSlot), '']);
+    }
+
+    for (final slotName in slots) {
+      final slotChildren =
+          (slotsData[slotName] as List?)?.cast<Map<String, dynamic>>();
+      if (slotChildren != null && slotChildren.isNotEmpty) {
+        parts.addAll(['# $slotName', '', renderChildren(slotChildren), '']);
+      }
+    }
+
+    parts.add(':::');
+    return parts.join('\n');
+  }
+
   /// Describe this widget for documentation tools.
   Map<String, dynamic> schema() => {
         'name': name,
         'params': {for (final e in params.entries) e.key: e.value.toSchema()},
         'slots': ['default', ...slots],
       };
+}
+
+/// Format a typed props map back into `key="val"` markdown syntax. Local copy
+/// to keep `BaseWidget` independent of the `MarkdownRenderer` import path
+/// (subclasses live in the same package but the renderer doesn't).
+String _formatPropsForMarkdown(Map<String, dynamic> props) {
+  final tokens = <String>[];
+  for (final entry in props.entries) {
+    final v = entry.value;
+    if (v == null) continue;
+    if (v == true) {
+      tokens.add(entry.key);
+      continue;
+    }
+    if (v == false) {
+      tokens.add('${entry.key}=false');
+      continue;
+    }
+    final s = v.toString();
+    final needsQuote = s.contains(RegExp(r'\s')) ||
+        s.contains('"') ||
+        s.contains("'") ||
+        s.contains('=');
+    tokens.add(needsQuote ? '${entry.key}="$s"' : '${entry.key}=$s');
+  }
+  return tokens.join(' ');
 }
 
 String _repr(Object? v) {

@@ -1,14 +1,17 @@
 /// `Document` — a thin façade over the AST root map exposing common
-/// operations as methods. Mirrors `markast.document.Document`. We intentionally
-/// omit the `toMarkdown`/`toHtml` helpers — on the Flutter side the renderer
-/// turns the AST into native widgets, so those Python conveniences have no
-/// counterpart here.
+/// operations as methods.
+///
+/// The HTML renderer (`toHtml`) intentionally has no Dart counterpart — on
+/// the Flutter side the renderer turns the AST into native widgets, which
+/// is what consumers want.
 library;
 
 import 'dart:convert' show JsonEncoder, jsonDecode;
 
 import 'ast/walker.dart' as walker;
 import 'ast/utils.dart' as ast_utils;
+import 'render/markdown_renderer.dart';
+import 'widgets_dsl/registry.dart';
 
 class Document {
   Document(Map<String, dynamic> root) : _root = _validateRoot(root);
@@ -58,6 +61,19 @@ class Document {
         ? const JsonEncoder()
         : JsonEncoder.withIndent(' ' * indent);
     return encoder.convert(_root);
+  }
+
+  /// Render this document back to canonical Markdown. Useful for editor
+  /// roundtrips where the AST is the source of truth on disk and a text
+  /// view needs an editable surface.
+  ///
+  /// Pass a custom [renderer] (or a [registry]) to override how specific
+  /// widget nodes are serialised. By default the renderer uses
+  /// [defaultRegistry] so the built-in widgets roundtrip in their canonical
+  /// `:::name` syntax.
+  String toMarkdown({MarkdownRenderer? renderer, WidgetRegistry? registry}) {
+    final r = renderer ?? MarkdownRenderer(registry);
+    return r.render(_root);
   }
 
   // ── Traversal helpers ───────────────────────────────────────────────────

@@ -1,4 +1,19 @@
-## 0.1.0
+## 0.0.3
+
+### Added — AST → Markdown
+
+Cierra el roundtrip completo: ya se puede serializar de vuelta el AST a texto Markdown canónico. Junto con el parser de 0.1.0 permite usar el AST como source of truth (almacenar JSON, abrir en un editor de texto convirtiéndolo a MD, volver a parsear al guardar).
+
+- **`MarkdownRenderer`** (`lib/src/render/markdown_renderer.dart`) — recorre el AST y emite Markdown. Subclaseable: override `_block_*` / `_inline_*` para personalizar.
+- **`Document.toMarkdown({renderer, registry})`** — atajo de instancia. Acepta un renderer o registry custom.
+- **`BaseWidget.toMarkdown(node, renderChildren)`** — nuevo método con implementación por defecto (`:::name k="v"` + slots con `# slot-name`). Overrides en `BadgeWidget`, `VideoWidget`, `CodeGroupWidget`, `CodeCollapseWidget`, `TabsWidget`, `StepsWidget` que usan formas custom.
+- **`formatProps(props)`** — helper expuesto para que widgets custom puedan reusar la misma política de comillas.
+
+### Tests
+
+- `test/roundtrip_test.dart` — verifica que `parse(md).toMarkdown()` re-parseada produce un AST estructuralmente equivalente.
+
+## 0.0.2
 
 ### Added — Markdown → AST en Dart
 
