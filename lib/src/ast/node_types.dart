@@ -50,4 +50,17 @@ class NodeType {
     list, listItem, table, tableHead, tableBody, tableRow, tableCell,
     divider, widget, htmlBlock, footnoteDef,
   };
+
+  /// Inline nodes that may appear inside a heading. Block-level and image
+  /// content is forbidden — see rule W001.
+  static const headingAllowedInline = <String>{
+    text, bold, italic, boldItalic, codeInline, link,
+    strikethrough, underline,
+  };
+
+  /// Inline nodes valid inside a table cell. Same constraints as headings.
+  static const tableCellAllowedInline = <String>{
+    text, bold, italic, boldItalic, codeInline, link,
+    strikethrough, underline,
+  };
 }
