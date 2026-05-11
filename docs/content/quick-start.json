@@ -28,7 +28,46 @@
       "children": [
         {
           "type": "text",
-          "value": "Escribe el contenido en JSON o conviértelo desde Markdown:"
+          "value": "Tres formas equivalentes de obtener el JSON:"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "a) Parsear Markdown en Dart (nuevo en 0.1.0)"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "import 'package:markast/markast.dart';\n\nfinal doc = parse('# ¡Hola!\\n\\nEsto es **markast**.');\nfinal ast = doc.toMap();   // listo para buildDocument\nprint(doc.toJson(indent: 2));"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Con opciones avanzadas:"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "final parser = Parser(\n  transforms: ['normalize', 'slugify', 'toc'],\n  widgets: [() => MyCalloutWidget()],\n);\nfinal doc = parser.parse(markdownSource);"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "b) Generar el JSON en Python (build server / CMS)"
         }
       ]
     },
@@ -36,6 +75,25 @@
       "type": "code_block",
       "language": "python",
       "value": "from markast import parse\n\ndoc = parse(\"# ¡Hola!\\n\\nEsto es **markast**.\")\nprint(doc.to_json())"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "c) Cargar JSON desde un asset"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Útil cuando el contenido viene pre-procesado en el bundle de la app — ver paso 3."
+        }
+      ]
     },
     {
       "type": "heading",

@@ -51,7 +51,7 @@
     {
       "type": "code_block",
       "language": "yaml",
-      "value": "dependencies:\n  markast: ^1.0.0"
+      "value": "dependencies:\n  markast: ^0.1.0"
     },
     {
       "type": "paragraph",
@@ -66,6 +66,43 @@
       "type": "code_block",
       "language": "bash",
       "value": "flutter pub get"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Desde 0.1.0 el paquete incluye un "
+        },
+        {
+          "type": "bold",
+          "children": [
+            {
+              "type": "text",
+              "value": "parser Markdown → AST nativo en Dart"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": " además del renderer. No necesitas Python en producción si el contenido se parsea en la app."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Verificar la instalación"
+        }
+      ]
+    },
+    {
+      "type": "code_block",
+      "language": "dart",
+      "value": "import 'package:markast/markast.dart';\n\nvoid main() {\n  final doc = parse('# Hola, **markast**!');\n  print(doc.toJson(indent: 2));\n}"
     },
     {
       "type": "heading",
@@ -89,7 +126,7 @@
     {
       "type": "code_block",
       "language": "yaml",
-      "value": "dependencies:\n  markast:\n    path: ../markast_flutter"
+      "value": "dependencies:\n  markast:\n    path: ../flutter_markast"
     },
     {
       "type": "heading",
@@ -97,7 +134,7 @@
       "children": [
         {
           "type": "text",
-          "value": "Parser Python"
+          "value": "Parser Python (opcional)"
         }
       ]
     },
@@ -106,7 +143,7 @@
       "children": [
         {
           "type": "text",
-          "value": "Instala con pip para convertir archivos Markdown a JSON:"
+          "value": "Si prefieres pre-procesar Markdown en un build server o CMS, instala el parser Python:"
         }
       ]
     },
@@ -116,12 +153,19 @@
       "value": "pip install markast"
     },
     {
-      "type": "heading",
-      "level": 3,
+      "type": "paragraph",
       "children": [
         {
           "type": "text",
-          "value": "Verificar la instalación"
+          "value": "Produce exactamente el mismo formato JSON que "
+        },
+        {
+          "type": "code_inline",
+          "value": "parse()"
+        },
+        {
+          "type": "text",
+          "value": " en Dart, así que el renderer Flutter es idéntico para ambos orígenes."
         }
       ]
     },
@@ -240,8 +284,35 @@
                 "align": null,
                 "children": [
                   {
+                    "type": "code_inline",
+                    "value": "package:markdown"
+                  }
+                ]
+              },
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
                     "type": "text",
-                    "value": "Python"
+                    "value": "^7.2.2 (transitivo)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table_row",
+            "cells": [
+              {
+                "type": "table_cell",
+                "is_header": false,
+                "align": null,
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Python (opcional)"
                   }
                 ]
               },
@@ -267,8 +338,12 @@
                 "align": null,
                 "children": [
                   {
+                    "type": "code_inline",
+                    "value": "markast"
+                  },
+                  {
                     "type": "text",
-                    "value": "markast (Python)"
+                    "value": " (Python, opcional)"
                   }
                 ]
               },

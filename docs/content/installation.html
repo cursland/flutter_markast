@@ -1,7 +1,12 @@
 <article class="markast"><h1>Instalación</h1><h2>Paquete Flutter</h2><p>Agrega <code>markast</code> a tu <code>pubspec.yaml</code>:</p><pre><code class="lang-yaml">dependencies:
-  markast: ^1.0.0</code></pre><p>Luego ejecuta:</p><pre><code class="lang-bash">flutter pub get</code></pre><h3>Ruta local (desarrollo)</h3><p>Si estás trabajando con una copia local de la librería:</p><pre><code class="lang-yaml">dependencies:
+  markast: ^0.1.0</code></pre><p>Luego ejecuta:</p><pre><code class="lang-bash">flutter pub get</code></pre><p>Desde 0.1.0 el paquete incluye un <strong>parser Markdown → AST nativo en Dart</strong> además del renderer. No necesitas Python en producción si el contenido se parsea en la app.</p><h3>Verificar la instalación</h3><pre><code class="lang-dart">import 'package:markast/markast.dart';
+
+void main() {
+  final doc = parse('# Hola, **markast**!');
+  print(doc.toJson(indent: 2));
+}</code></pre><h3>Ruta local (desarrollo)</h3><p>Si estás trabajando con una copia local de la librería:</p><pre><code class="lang-yaml">dependencies:
   markast:
-    path: ../markast_flutter</code></pre><h2>Parser Python</h2><p>Instala con pip para convertir archivos Markdown a JSON:</p><pre><code class="lang-bash">pip install markast</code></pre><h3>Verificar la instalación</h3><pre><code class="lang-python">from markast import parse
+    path: ../flutter_markast</code></pre><h2>Parser Python (opcional)</h2><p>Si prefieres pre-procesar Markdown en un build server o CMS, instala el parser Python:</p><pre><code class="lang-bash">pip install markast</code></pre><p>Produce exactamente el mismo formato JSON que <code>parse()</code> en Dart, así que el renderer Flutter es idéntico para ambos orígenes.</p><pre><code class="lang-python">from markast import parse
 
 doc = parse("# Hola, **markast**!")
-print(doc.to_json())</code></pre><h2>Requisitos</h2><table><thead><tr><th>Paquete</th><th>Versión mínima</th></tr></thead><tbody><tr><td>Flutter SDK</td><td>3.0.0</td></tr><tr><td>Dart SDK</td><td>3.0.0</td></tr><tr><td>Python</td><td>3.9+</td></tr><tr><td>markast (Python)</td><td>latest</td></tr></tbody></table></article>
+print(doc.to_json())</code></pre><h2>Requisitos</h2><table><thead><tr><th>Paquete</th><th>Versión mínima</th></tr></thead><tbody><tr><td>Flutter SDK</td><td>3.0.0</td></tr><tr><td>Dart SDK</td><td>3.0.0</td></tr><tr><td><code>package:markdown</code></td><td>^7.2.2 (transitivo)</td></tr><tr><td>Python (opcional)</td><td>3.9+</td></tr><tr><td><code>markast</code> (Python, opcional)</td><td>latest</td></tr></tbody></table></article>

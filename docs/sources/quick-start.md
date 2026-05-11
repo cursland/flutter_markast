@@ -2,7 +2,29 @@
 
 ## 1. Crear un AST
 
-Escribe el contenido en JSON o conviértelo desde Markdown:
+Tres formas equivalentes de obtener el JSON:
+
+### a) Parsear Markdown en Dart (nuevo en 0.1.0)
+
+```dart
+import 'package:markast/markast.dart';
+
+final doc = parse('# ¡Hola!\n\nEsto es **markast**.');
+final ast = doc.toMap();   // listo para buildDocument
+print(doc.toJson(indent: 2));
+```
+
+Con opciones avanzadas:
+
+```dart
+final parser = Parser(
+  transforms: ['normalize', 'slugify', 'toc'],
+  widgets: [() => MyCalloutWidget()],
+);
+final doc = parser.parse(markdownSource);
+```
+
+### b) Generar el JSON en Python (build server / CMS)
 
 ```python
 from markast import parse
@@ -10,6 +32,10 @@ from markast import parse
 doc = parse("# ¡Hola!\n\nEsto es **markast**.")
 print(doc.to_json())
 ```
+
+### c) Cargar JSON desde un asset
+
+Útil cuando el contenido viene pre-procesado en el bundle de la app — ver paso 3.
 
 ## 2. Renderizar en Flutter
 

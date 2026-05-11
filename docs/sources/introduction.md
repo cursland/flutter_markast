@@ -27,24 +27,30 @@ En lugar de pasar cadenas de HTML o Markdown sin procesar a un renderer, markast
 }
 ```
 
-Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia.
+Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia, y desde la versión 0.1.0 el paquete Flutter incluye su propio parser Dart para construir el AST en la app sin necesidad de un servidor.
 
 ## Paquetes
 
 | Paquete | Plataforma | Propósito |
 |---------|------------|-----------|
 | `markast` (Python) | Parser | Convierte Markdown → AST JSON, HTML o de vuelta a Markdown |
-| `markast` (Flutter) | Renderer | Renderiza un AST JSON como widgets nativos de Flutter |
+| `markast` (Flutter) | Parser + Renderer | Parsea Markdown → AST en Dart y lo renderiza como widgets nativos |
+
+Convertir (Markdown → AST) y renderizar (AST → widgets) son procesos independientes. Puedes generar el JSON en Dart, en Python o cargarlo desde un asset/API — al renderer le da igual.
 
 ## Pipeline
 
 ```
-article.md
-    │
-    ▼  python build.py
-    ├── article.html   ← este sitio usa este archivo
-    └── article.json   ← la app Flutter usa este archivo
+article.md ─┐
+            ├─►  AST JSON  ─►  widgets / HTML / Markdown
+JSON asset ─┘
 ```
+
+Tres orígenes válidos del AST:
+
+* En la app Flutter: `parse('# Hola')` (motor Dart, sin servidor).
+* En el build server: `python -m markast parse article.md --format json`.
+* Cualquier backend que emita JSON respetando el `type` discriminator.
 
 ## Sobre esta documentación
 

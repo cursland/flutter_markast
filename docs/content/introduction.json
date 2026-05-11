@@ -64,7 +64,7 @@
       "children": [
         {
           "type": "text",
-          "value": "Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia."
+          "value": "Cualquier parser que produzca este formato es compatible. El parser oficial de Python es la implementación de referencia, y desde la versión 0.1.0 el paquete Flutter incluye su propio parser Dart para construir el AST en la app sin necesidad de un servidor."
         }
       ]
     },
@@ -193,7 +193,7 @@
                 "children": [
                   {
                     "type": "text",
-                    "value": "Renderer"
+                    "value": "Parser + Renderer"
                   }
                 ]
               },
@@ -204,7 +204,7 @@
                 "children": [
                   {
                     "type": "text",
-                    "value": "Renderiza un AST JSON como widgets nativos de Flutter"
+                    "value": "Parsea Markdown → AST en Dart y lo renderiza como widgets nativos"
                   }
                 ]
               }
@@ -212,6 +212,15 @@
           }
         ]
       }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Convertir (Markdown → AST) y renderizar (AST → widgets) son procesos independientes. Puedes generar el JSON en Dart, en Python o cargarlo desde un asset/API — al renderer le da igual."
+        }
+      ]
     },
     {
       "type": "heading",
@@ -226,7 +235,73 @@
     {
       "type": "code_block",
       "language": "",
-      "value": "article.md\n    │\n    ▼  python build.py\n    ├── article.html   ← este sitio usa este archivo\n    └── article.json   ← la app Flutter usa este archivo"
+      "value": "article.md ─┐\n            ├─►  AST JSON  ─►  widgets / HTML / Markdown\nJSON asset ─┘"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Tres orígenes válidos del AST:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "children": [
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "En la app Flutter: "
+            },
+            {
+              "type": "code_inline",
+              "value": "parse('# Hola')"
+            },
+            {
+              "type": "text",
+              "value": " (motor Dart, sin servidor)."
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "En el build server: "
+            },
+            {
+              "type": "code_inline",
+              "value": "python -m markast parse article.md --format json"
+            },
+            {
+              "type": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "type": "list_item",
+          "children": [
+            {
+              "type": "text",
+              "value": "Cualquier backend que emita JSON respetando el "
+            },
+            {
+              "type": "code_inline",
+              "value": "type"
+            },
+            {
+              "type": "text",
+              "value": " discriminator."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "heading",

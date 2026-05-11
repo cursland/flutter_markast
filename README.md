@@ -4,11 +4,11 @@
 
 # markast
 
-**markast AST → native Flutter widgets**
+**Markdown → typed AST → native Flutter widgets**
 
-Render the typed JSON tree produced by the [markast](https://github.com/cursland/markast) Python parser into native Flutter widgets. No HTML or WebView rendering, fully themeable, extensible via custom renderers.
+Parse Markdown into a typed JSON AST and render it as native Flutter widgets — no HTML, no WebView, fully themeable, extensible via custom renderers. The parsing and rendering pipelines are independent: build the AST in Dart, in Python, or anywhere else.
 
-[![Version](https://img.shields.io/badge/version-0.0.1-6d52ff)](https://www.cursland.com)
+[![Version](https://img.shields.io/badge/version-0.1.0-6d52ff)](https://www.cursland.com)
 [![Flutter](https://img.shields.io/badge/flutter->=1.17.0-6d52ff)](pubspec.yaml)
 [![License](https://img.shields.io/badge/license-MIT-6d52ff)](LICENSE)
 
@@ -22,7 +22,10 @@ import 'package:markast/markast.dart';
 final markast = Markast();
 
 Widget build(BuildContext context) {
-  return markast.buildDocument(context, jsonAst, onLinkTap: (url, _) {
+  // Build the AST in Dart, or load JSON from any compatible source.
+  final ast = parse('# Hola\n\nUn párrafo con **negrita**.').toMap();
+
+  return markast.buildDocument(context, ast, onLinkTap: (url, _) {
     launchUrl(Uri.parse(url));
   });
 }
@@ -30,13 +33,51 @@ Widget build(BuildContext context) {
 
 ## How it works
 
-The [markast Python parser](https://www.cursland.com) converts Markdown into a typed JSON AST. This package consumes that JSON and renders it as native Flutter widgets.
+markast splits the work into two independent stages:
 
 ```
-Markdown  →  markast (Python)  →  JSON AST  →  markast (Flutter)  →  Widgets
+Markdown  ─┐
+           ├─►  JSON AST  ─►  Widgets
+JSON file  ─┘
 ```
 
-Any parser that produces JSON following the same node convention is also compatible — the renderer dispatches purely on the `type` field of each node.
+You can produce the AST any of these ways:
+
+| Source | Function |
+|---|---|
+| Markdown in your Flutter app | `parse(text)` — this package |
+| Markdown server-side | The [Python `markast` parser](https://github.com/cursland/markast) |
+| A CMS / API | Any backend that emits JSON following the node convention |
+| Hand-written | Construct nodes directly with the `factory.dart` helpers |
+
+The renderer dispatches purely on the `type` field of each node, so all four sources are interchangeable.
+
+## Parsing in Dart
+
+```dart
+import 'package:markast/markast.dart';
+
+final doc = parse('# Heading\n\nWith **bold** text and [a link](https://x.dev).');
+
+doc.toMap();                  // Map<String, dynamic> ready for buildDocument
+doc.toJson(indent: 2);        // JSON string
+doc.warnings;                 // diagnostics — W001…W009 codes
+doc.find(NodeType.heading);   // walk the tree
+```
+
+For non-default behaviour — custom widgets, transform pipelines, alternate rule sets — construct a `Parser` explicitly:
+
+```dart
+final parser = Parser(
+  transforms: ['normalize', 'slugify', 'toc'],
+  widgets: [() => MyCustomWidget()],
+);
+final doc = parser.parse(markdownSource);
+```
+
+Built-in widget containers (`:::name`): `tip`, `note`, `info`, `warning`, `caution`, `danger`, `card`, `video`, `code-group`, `code-collapse`, `tabs`, `steps`, `badge`. Mirrors the Python parser one-for-one.
+
+Available transforms: `normalize` (merge adjacent text), `slugify` (kebab-case `id` on every heading), `toc` (nested TOC in `meta.toc`), `linkify` (turn bare URLs into links), `smarttypography` (curly quotes, en/em dashes).
 
 ## Theming
 
